@@ -1,0 +1,126 @@
+<%--学生一覧JSP --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+			pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+
+<%@page import="bean.Student, java.util.List, java.util.HashMap" %>
+
+<% List<Student> ent_year_set=(List<Student>)request.getAttribute("ent_year_set"); %>
+<% List<Student> class_num_set=(List<Student>)request.getAttribute("class_num_set"); %>
+<% HashMap errors=(HashMap)request.getAttribute("errors"); %>
+<% List<Student> students=(List<Student>)request.getAttribute("students"); %>
+
+<c:import url = "/common/base.jsp">
+	<c:param name="title">
+		<div class="title"><h3>得点管理システム</h3></div>
+	</c:param>
+
+	<c:param name="scripts"></c:param>
+
+	<c:param name="content">
+		<section class="mo-4">
+			<div class="student-management">
+				<h2 class="h3 mb-3 fw-norma  bg-opacity-10 py-2 px-4">学生管理</h2>
+			</div>
+				<div class="my-2 text-end px4">
+					<a href="StudentCreate.action">新規登録</a>
+				</div>
+
+				<form method="get" action="Student_filter">
+					<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
+						<div class="col-4">
+							<label class="form-label" for="student-f1-select">入学年度</label>
+							<select class="form-select" id="student-f1-select" name="f1">
+								<option value="0">---------------</option>
+								<% for (Student year : ent_year_set) { %>
+									<option value=<%=year.getEntYear() %> <c:if test="${year==f1 }">selected</c:if>><%=year.getEntYear() %></option>
+								<% } %>
+								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
+										<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+										<%-- <option value="${year }" <c:if test="${year==f1 }">selected</c:if>>${year }</option> --%>
+								<%-- </c:forEach> --%>
+							</select>
+						</div>
+
+						<div class="col-4">
+							<label class="form-label"  for="student-f2-select">クラス</label>
+							<select class="form-select" id ="student-f2-select" name="f2">
+								<option value="0">---------------</option>
+								<% for (Student num : class_num_set) { %>
+									<option value=<%=num.getClassNum() %> <c:if test="${num==f2 }">selected</c:if>><%=num.getClassNum() %></option>
+								<% } %>
+								<%-- <c:forEach var="num" items="${class_num_set }"> --%>
+									<%--現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
+									<%-- <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option> --%>
+								<%-- </c:forEach> --%>
+							</select>
+						</div>
+
+						<div class="col-2 form-check text-center">
+							<label class="form-check-label" for="student-f3-check">在学中 　
+								<%--パラメータf3が存在している場合checkboxを追記 --%>
+								<input class="form-check-input" type="checkbox"
+								id="student-f3-check" name="f3" value="True"
+								<c:if test="${!empty f3 }">checked</c:if> />
+							</label>
+						</div>
+
+						<div class="col-2 text-center">
+							<input type="submit" class="btn btn-secondary" id="filter-button" value="絞込む">
+						</div>
+						<div class="mt-2 text-warning">${errors.get("f1")}</div>
+					</div>
+				</form>
+				<c:choose>
+					<c:when test="${students.size()>0}">
+						<div>検索結果：${students.size()}件</div>
+						<table class="table table-hover">
+							<tr>
+								<th>入学年度</th>
+								<th>学生番号</th>
+								<th>氏名</th>
+								<th>ふりがな</th>
+								<th>性別</th>
+								<th>クラス</th>
+								<th class="text-center">在学中</th>
+								<th>誕生日</th>
+
+								<th></th>
+								<th></th>
+							</tr>
+							<c:forEach var="student" items="${students}">
+								<tr>
+									<td>${student.entYear}</td>
+									<td>${student.no}</td>
+									<td>${student.name}</td>
+									<td>${student.hurigana}</td>
+									<td>${student.gender}</td>
+									<td>${student.classNum}</td>
+									<td class="text-center">
+										<%-- 在学フラグがたっている場合「○」それ以外は「×」を表示 --%>
+										<c:choose>
+											<c:when test="${student.isAttend()}">
+												○
+											</c:when>
+											<c:otherwise>
+												×
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>${student.birthday}</td>
+									<%-- 生徒情報変更リンク --%>
+									<td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
+									<%-- 生徒情報削除リンク --%>
+									<td><a href="StudentDelete.action?no=${student.no}">削除</a></td>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<div class="none-student">学生情報が存在しませんでした</div>
+					</c:otherwise>
+				</c:choose>
+		</section>
+	</c:param>
+</c:import>
+
