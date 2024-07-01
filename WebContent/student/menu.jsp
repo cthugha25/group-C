@@ -1,4 +1,4 @@
-<%--学生一覧JSP --%>
+<%--メニュー画面 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 			pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
@@ -16,29 +16,29 @@
 	</c:param>
 
 	<c:param name="student">
-				<div class="student" >
-					<p><a href="Student_list">学生管理</a><p>
-				</div>
+		<div class="student" >
+			<p><a href="../student/Student_list">学生管理</a><p>
+		</div>
 	</c:param>
 
 	<c:param name="Grades">
 		<div class="Grades">
-				<div class="Grade-management" >
-					<p><a href="###">成績管理</a></p>
-				</div>
-				<div class="Grades-Registration" >
-					<p><a href="###">成績登録</a></p>
-				</div>
-				<div class="Grades-See" >
-					<p><a href="###">成績参照</a></p>
-				</div>
+			<div class="Grade-management" >
+				<p><a href="###">成績管理</a></p>
+			</div>
+			<div class="Grades-Registration" >
+				<p><a href="###">成績登録</a></p>
+			</div>
+			<div class="Grades-See" >
+				<p><a href="../test/Test_list">成績参照</a></p>
+			</div>
 		</div>
 	</c:param>
 
 	<c:param name="menu">
-				<div class="Course-Management" >
-					<p><a href="###">科目管理</a></p>
-				</div>
+		<div class="Course-Management" >
+			<p><a href="../subject/Subject_list">科目管理</a></p>
+		</div>
 	</c:param>
 
 

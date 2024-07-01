@@ -16,6 +16,7 @@ import bean.School;
 import bean.Student;
 import dao.StudentDao;
 
+//学生一覧の検索フォームの送信先
 @WebServlet(urlPatterns={"/student/Student_filter"})
 public class Student_filter extends HttpServlet {
 
@@ -43,8 +44,8 @@ public class Student_filter extends HttpServlet {
 			String classNum=request.getParameter("f2");
 			String[] isAttendStr=request.getParameterValues("f3");
 
-			List<Student> ent_year_set=dao.AllEntYear();
-			List<Student> class_num_set=dao.AllClassNum();
+			List<Student> ent_year_set=dao.AllEntYear(school);
+			List<Student> class_num_set=dao.AllClassNum(school);
 
 			// 在学チェックボックスがチェックされていなかった場合在学フラグをfalseにする
 			if (isAttendStr == null) {
@@ -53,20 +54,16 @@ public class Student_filter extends HttpServlet {
 
 			// 実行する絞り込みメソッド分岐
 			if (entYear != 0 && !classNum.equals("0")) {
-				System.out.println("年度とクラス");
 				// 入学年度とクラス番号指定
 				list = dao.filter(school, entYear, classNum, isAttend);
 			} else if (entYear != 0 && classNum.equals("0")) {
-				System.out.println("年度");
 				// 入学年度のみ指定
 				list = dao.filter(school, entYear, isAttend);
 			} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
-				System.out.println("なし");
 				// 指定なしの場合
 				// 全学年情報を取得
 				list = dao.filter(school, isAttend);
 			} else {
-				System.out.println("エラーとなし");
 				// エラー
 				errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
 				request.setAttribute("errors", errors);

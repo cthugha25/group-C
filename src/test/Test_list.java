@@ -1,4 +1,4 @@
-package student;
+package test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,19 +14,14 @@ import bean.School;
 import bean.Student;
 import dao.StudentDao;
 
-//初回の学生一覧ページ遷移でセレクトボックスのデータ表示
-@WebServlet(urlPatterns={"/student/Student_list"})
-public class Student_list extends HttpServlet {
-
+// 成績参照の検索フォームの送信先
+@WebServlet(urlPatterns={"/test/Test_list"})
+public class Test_list extends HttpServlet {
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 		try {
-			// 在学フラグのデフォルトをtrue(在学中)にする
-			boolean isAttend = true;
-			String isAttendStr="True";
-
 			// Daoインスタンス化
 			StudentDao dao=new StudentDao();
 
@@ -35,20 +30,16 @@ public class Student_list extends HttpServlet {
 			school.setCd("oom");
 			school.setName("学校名");
 
+			// セレクトボックスに表示するデータ取得
 			List<Student> ent_year_set=dao.AllEntYear(school);
 			List<Student> class_num_set=dao.AllClassNum(school);
-			List<Student> list=dao.filter(school, isAttend);
 
+			// 値セット
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
-			request.setAttribute("f1", "0");
-			request.setAttribute("f2", "0");
-			request.setAttribute("f3", isAttendStr);
-			// リクエストに学生リストをセット
-			request.setAttribute("students", list);
 
 			// 学生一覧にフォワード
-			request.getRequestDispatcher("student_list.jsp")
+			request.getRequestDispatcher("test_list.jsp")
 				.forward(request, response);
 
 		} catch (Exception e) {

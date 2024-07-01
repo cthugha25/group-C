@@ -3,13 +3,6 @@
 			pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 
-<%@page import="bean.Student, java.util.List, java.util.HashMap" %>
-
-<% List<Student> ent_year_set=(List<Student>)request.getAttribute("ent_year_set"); %>
-<% List<Student> class_num_set=(List<Student>)request.getAttribute("class_num_set"); %>
-<% HashMap errors=(HashMap)request.getAttribute("errors"); %>
-<% List<Student> students=(List<Student>)request.getAttribute("students"); %>
-
 <c:import url = "/common/base.jsp">
 	<c:param name="title">
 		<div class="title"><h3>得点管理システム</h3></div>
@@ -32,13 +25,10 @@
 							<label class="form-label" for="student-f1-select">入学年度</label>
 							<select class="form-select" id="student-f1-select" name="f1">
 								<option value="0">---------------</option>
-								<% for (Student year : ent_year_set) { %>
-									<option value=<%=year.getEntYear() %> <c:if test="${year==f1 }">selected</c:if>><%=year.getEntYear() %></option>
-								<% } %>
-								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
-										<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-										<%-- <option value="${year }" <c:if test="${year==f1 }">selected</c:if>>${year }</option> --%>
-								<%-- </c:forEach> --%>
+								<c:forEach var="year" items="${ent_year_set }">
+									<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+									<option value="${year.entYear }" <c:if test="${year.entYear==f1 }">selected</c:if>>${year.entYear }</option>
+								</c:forEach>
 							</select>
 						</div>
 
@@ -46,13 +36,10 @@
 							<label class="form-label"  for="student-f2-select">クラス</label>
 							<select class="form-select" id ="student-f2-select" name="f2">
 								<option value="0">---------------</option>
-								<% for (Student num : class_num_set) { %>
-									<option value=<%=num.getClassNum() %> <c:if test="${num==f2 }">selected</c:if>><%=num.getClassNum() %></option>
-								<% } %>
-								<%-- <c:forEach var="num" items="${class_num_set }"> --%>
+								<c:forEach var="num" items="${class_num_set }">
 									<%--現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-									<%-- <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option> --%>
-								<%-- </c:forEach> --%>
+									<option value="${num.classNum }" <c:if test="${num.classNum==f2 }">selected</c:if>>${num.classNum }</option>
+								</c:forEach>
 							</select>
 						</div>
 
