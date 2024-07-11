@@ -22,12 +22,14 @@ public class Test_list extends HttpServlet {
 	) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 		try {
+			String f = "li";
 			TestListSubjectDao dao=new TestListSubjectDao();
 			List<TestListSubject> ent_year_set=dao.AllEntYear_test();
 			List<TestListSubject> class_num_set=dao.AllClassNum_test();
 			List<TestListStudent> subject_set=dao.AllSubject_test();
 			List<TestListStudent> no_set=dao.AllNo_test();
 
+			request.setAttribute("f", f);
 			request.setAttribute("num", 0);
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);

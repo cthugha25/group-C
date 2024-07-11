@@ -86,8 +86,8 @@ public class Test_filter extends HttpServlet {
 				String studentNo=request.getParameter("f4");
 
 				// メソッド実行
-				tests = dao.filter(school, studentNo);		// 学生別成績参照
 				Student student = stu_dao.get(studentNo, school);	// 学生情報取得
+				tests = dao.filter(student);		// 学生別成績参照
 				// セレクトボックス用データ取得
 				List<TestListSubject> ent_year_set=sub_dao.AllEntYear_test();
 				List<TestListSubject> class_num_set=sub_dao.AllClassNum_test();

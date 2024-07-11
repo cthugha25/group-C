@@ -2,7 +2,6 @@ package subject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,12 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.School;
-import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet(urlPatterns={"/subject/Subject_list"})
-public class Subject_list extends HttpServlet {
+@WebServlet(urlPatterns={"/subject/Subject_delete_Execute"})
+public class Subject_delete_Execute extends HttpServlet {
 
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
@@ -25,18 +22,17 @@ public class Subject_list extends HttpServlet {
 			// Daoインスタンス化
 			SubjectDao dao=new SubjectDao();
 
-			// ログインした教師の情報受け取り　後で変える！
-			School school=new School();
-			school.setCd("oom");
+			// 科目コード取得
+			String subjectCd=request.getParameter("cd");
 
-			// 科目一覧表示メソッド実行
-			List<Subject> list=dao.selectAllSubject(school);
+			// 削除メソッド実行
+			boolean result=dao.delete(subjectCd);
 
-			// リクエストに科目リストをセット
-			request.setAttribute("subjects", list);
+			// リクエストに実行結果をセット
+			request.setAttribute("result", result);
 
-			// 科目一覧にフォワード
-			request.getRequestDispatcher("subject_list.jsp")
+			// 科目削除完了画面にフォワード
+			request.getRequestDispatcher("subject_delete_done.jsp")
 				.forward(request, response);
 
 		} catch (Exception e) {
