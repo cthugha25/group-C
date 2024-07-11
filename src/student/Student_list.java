@@ -33,7 +33,6 @@ public class Student_list extends HttpServlet {
 			// ログインした教師の情報受け取り　後で変える！
 			School school=new School();
 			school.setCd("oom");
-			school.setName("学校名");
 
 			List<Student> ent_year_set=dao.AllEntYear(school);
 			List<Student> class_num_set=dao.AllClassNum(school);
@@ -41,8 +40,8 @@ public class Student_list extends HttpServlet {
 
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
-			request.setAttribute("f1", "0");
-			request.setAttribute("f2", "0");
+//			request.setAttribute("f1", "0");
+//			request.setAttribute("f2", "0");
 			request.setAttribute("f3", isAttendStr);
 			// リクエストに学生リストをセット
 			request.setAttribute("students", list);

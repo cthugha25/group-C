@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.School;
+import bean.Student;
 import bean.TestListStudent;
 
 public class TestListStudentDao extends DAO {
 	// 学生番号を取得してその学生の成績一覧を表示
-	public List<TestListStudent> filter(School school, String studentNo) throws Exception {
+	public List<TestListStudent> filter(Student student) throws Exception {
 		// リスト初期化
 		List<TestListStudent> list = new ArrayList<>();
 		// コネクションを確立
@@ -28,11 +28,9 @@ public class TestListStudentDao extends DAO {
 					"select * from TEST "
 					+ "join SUBJECT on TEST.SUBJECT_CD=SUBJECT.CD "
 					+ "join STUDENT on TEST.STUDENT_NO=STUDENT.NO "
-					+ "where TEST.SCHOOL_CD=? and TEST.STUDENT_NO=?");
-			// プリペアードステートメントに学校コードをバインド
-			statement.setString(1, school.getCd());
+					+ "where TEST.STUDENT_NO=?");
 			// プリペアードステートメントに学生番号をバインド
-			statement.setString(2, studentNo);
+			statement.setString(1, student.getNo());
 			// プリペアードステートメント実行
 			rSet = statement.executeQuery();
 

@@ -1,4 +1,4 @@
-<%--成績参照結果JSP --%>
+<%--成績参照JSP --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 			pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
@@ -13,11 +13,16 @@
 	<c:param name="content">
 		<section class="mo-4">
 			<div class="student-management">
-				<h2 class="h3 mb-3 fw-norma  bg-opacity-10 py-2 px-4">成績一覧（学生）</h2>
+				<h2 class="h3 mb-3 fw-norma  bg-opacity-10 py-2 px-4">
+					<c:choose>
+						<c:when test="${f==\"li\"}">成績参照</c:when>
+						<c:when test="${f==\"st\" }">成績一覧（学生）</c:when>
+					</c:choose>
+				</h2>
 			</div>
 
 			<%-- 科目別成績参照用フォーム --%>
-			<form method="get" action="Test_filter">
+			<form method="get" action="#!">
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 					<p>科目情報</p>
 					<%-- 入学年度セレクトボックス --%>
@@ -59,7 +64,10 @@
 					<div class="col-2 text-center">
 						<input type="submit" class="btn btn-secondary" id="filter-button" value="検索">
 					</div>
+					<%-- エラーメッセージ --%>
 					<div class="mt-2 text-warning">${errors.get("f1")}</div>
+					<%-- 科目別成績検索識別コード --%>
+					<input type="hidden" name="f" value="sj">
 				</div>
 			</form>
 
@@ -76,10 +84,20 @@
 					<div class="col-2 text-center">
 						<input type="submit" class="btn btn-secondary" id="filter-button" value="検索">
 					</div>
+					<%-- 学生別成績検索識別コード --%>
+					<input type="hidden" name="f" value="st">
 				</div>
 			</form>
 
 			<c:choose>
+				<%-- 検索前の場合 --%>
+				<c:when test="${f==\"li\"}">
+					<p>
+						科目情報を選択または学生番号を入力して検索ボタンをクリックしてください
+					</p>
+				</c:when>
+
+				<%-- 検索後で情報があった場合 --%>
 				<c:when test="${tests.size()>0}">
 					<p>氏名：${student.name }(${student.no })</p>
 					<table class="table table-hover">
@@ -99,6 +117,7 @@
 						</c:forEach>
 					</table>
 				</c:when>
+				<%-- 検索後で情報が無かった場合 --%>
 				<c:otherwise>
 					<div class="none-student">成績情報が存在しませんでした</div>
 				</c:otherwise>

@@ -37,20 +37,20 @@ public class Student_filter extends HttpServlet {
 			// ログインした教師の情報受け取り　後で変える！
 			School school=new School();
 			school.setCd("oom");
-			school.setName("学校名");
 
 			// 入学年度、クラス、在学フラグの値受け取り
 			int entYear=Integer.parseInt(request.getParameter("f1"));
 			String classNum=request.getParameter("f2");
 			String[] isAttendStr=request.getParameterValues("f3");
 
-			List<Student> ent_year_set=dao.AllEntYear(school);
-			List<Student> class_num_set=dao.AllClassNum(school);
-
 			// 在学チェックボックスがチェックされていなかった場合在学フラグをfalseにする
 			if (isAttendStr == null) {
 				isAttend = false;
 			}
+
+			// セレクトボックスに入学年度とクラス番号を表示するメソッド実行
+			List<Student> ent_year_set=dao.AllEntYear(school);
+			List<Student> class_num_set=dao.AllClassNum(school);
 
 			// 実行する絞り込みメソッド分岐
 			if (entYear != 0 && !classNum.equals("0")) {
@@ -71,12 +71,13 @@ public class Student_filter extends HttpServlet {
 				list = dao.filter(school, isAttend);
 			}
 
+			// セレクトボックスに選択した値セット
+			request.setAttribute("f1", entYear);
+			request.setAttribute("f2", classNum);
+			// セレクトボックスに選択肢セット
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
 
-			// 値セット
-			request.setAttribute("f1", entYear);
-			request.setAttribute("f2", classNum);
 			// 在学フラグが送信されていた場合
 			if (isAttendStr != null) {
 				// 在学フラグを立てる
@@ -84,6 +85,7 @@ public class Student_filter extends HttpServlet {
 				// リクエストに在学フラグをセット
 				request.setAttribute("f3", isAttendStr);
 			}
+
 			// リクエストに学生リストをセット
 			request.setAttribute("students", list);
 

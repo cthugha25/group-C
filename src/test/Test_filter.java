@@ -2,9 +2,7 @@ package test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,8 +26,6 @@ public class Test_filter extends HttpServlet {
 		try {
 			// 成績リスト
 			List<TestListStudent> tests = null;
-			// エラーメッセージ
-			Map<String,String> errors = new HashMap<>();
 			// Daoインスタンス化
 			TestListStudentDao dao=new TestListStudentDao();
 			StudentDao stu_dao=new StudentDao();
@@ -37,19 +33,20 @@ public class Test_filter extends HttpServlet {
 			// ログインした教師の情報受け取り　後で変える！
 			School school=new School();
 			school.setCd("oom");
-			school.setName("学校名");
 
-			// 入力された学生番号受け取り
+			// 入力された学生番号と検索識別コード受け取り
 			String studentNo=request.getParameter("f4");
+			String f=request.getParameter("f");
 
 			// メソッド実行
-			tests = dao.filter(school, studentNo);		// 学生別成績参照
 			Student student = stu_dao.get(studentNo, school);	// 学生情報取得
+			tests = dao.filter(student);		// 学生別成績参照
 			// セレクトボックス用データ取得
 			List<Student> ent_year_set=stu_dao.AllEntYear(school);
 			List<Student> class_num_set=stu_dao.AllClassNum(school);
 
 			// 値セット
+			request.setAttribute("f", f);
 			request.setAttribute("tests", tests);
 			request.setAttribute("student", student);
 			request.setAttribute("ent_year_set", ent_year_set);

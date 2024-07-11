@@ -2,7 +2,6 @@ package subject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +13,8 @@ import bean.School;
 import bean.Subject;
 import dao.SubjectDao;
 
-@WebServlet(urlPatterns={"/subject/Subject_list"})
-public class Subject_list extends HttpServlet {
+@WebServlet(urlPatterns={"/subject/Subject_delete"})
+public class Subject_delete extends HttpServlet {
 
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
@@ -29,14 +28,17 @@ public class Subject_list extends HttpServlet {
 			School school=new School();
 			school.setCd("oom");
 
-			// 科目一覧表示メソッド実行
-			List<Subject> list=dao.selectAllSubject(school);
+			// 科目コード取得
+			String subjectCd=request.getParameter("cd");
 
-			// リクエストに科目リストをセット
-			request.setAttribute("subjects", list);
+			// 科目情報表示メソッド実行
+			Subject subject=dao.get(subjectCd, school);
 
-			// 科目一覧にフォワード
-			request.getRequestDispatcher("subject_list.jsp")
+			// リクエストに科目情報をセット
+			request.setAttribute("subject", subject);
+
+			// 科目削除画面にフォワード
+			request.getRequestDispatcher("subject_delete.jsp")
 				.forward(request, response);
 
 		} catch (Exception e) {
