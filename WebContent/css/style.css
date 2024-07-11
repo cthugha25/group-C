@@ -93,3 +93,15 @@ li{
 	bottom: 0;
 	text-align: center;
 }
+
+textarea1 {
+    white-space: pre-line;
+}
+
+.my-textarea {
+        line-height: 1.2; /* 行間を狭める */
+    }
+
+.ochawan-subtitle {
+    white-space: nowrap;
+}
