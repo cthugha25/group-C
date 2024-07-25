@@ -14,7 +14,7 @@ import bean.TestListStudent;
 import bean.TestListSubject;
 import dao.TestListSubjectDao;
 
-@WebServlet(urlPatterns={"/test/test_list"})
+@WebServlet(urlPatterns={"/test/Test_list"})
 public class Test_list extends HttpServlet {
 
 	public void doGet (

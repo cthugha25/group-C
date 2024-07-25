@@ -5,7 +5,13 @@
 
 <c:import url = "/common/base.jsp">
 	<c:param name="title">
-		<div class="title"><h3>得点管理システム</h3></div>
+		<div class="title">
+			<h1>得点管理システム</h1>
+			<c:if test="${teacher!=null}">
+				<p>${teacher.name }様</p>
+				<a href="../login/Logout_execute">ログアウト</a>
+			</c:if>
+		</div>
 	</c:param>
 
 	<c:param name="scripts"></c:param>
@@ -18,7 +24,7 @@
 
 			<%-- 削除フォーム --%>
 			<p>「${subject.name}(${subject.cd})」を削除してもよろしいですか</p>
-			<form method="get" action="Subject_delete_Execute">
+			<form method="get" action="Subject_delete_execute">
 				<input type="hidden" name="cd" value="${subject.cd}">
 				<input type="submit" class="btn btn-secondary" id="filter-button" value="削除">
 			</form>

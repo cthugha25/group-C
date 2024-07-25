@@ -41,14 +41,11 @@
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f1-select">入学年度</label></div>
 							<select class="form-select" id="subject-f1-select" name="f1">
-								<% for (TestListSubject year : ent_year_set) { %>
-									<option value=<%=year.getEntYear() %> <c:if test="${year==f1 }">selected</c:if>><%=year.getEntYear() %></option>
-								<% } %>
-								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
-										<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-										<%-- <option value="${year }" <c:if test="${year==f1 }">selected</c:if>>${year }</option> --%>
-								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
+								<c:forEach var="year" items="${ent_year_set }">
+									<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+									<option value="${year.entYear }" <c:if test="${year.entYear==f1 }">selected</c:if>>${year.entYear }</option>
+								</c:forEach>
 							</select>
 						</div>
 					</td>
@@ -56,14 +53,11 @@
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label"  for="student-f2-select">クラス</label></div>
 							<select class="form-select" id ="subject-f2-select" name="f2">
-								<% for (TestListSubject number : class_num_set) { %>
-									<option value=<%=number.getClassNum() %> <c:if test="${num==f2 }">selected</c:if>><%=number.getClassNum() %></option>
-								<% } %>
-								<%-- <c:forEach var="num" items="${class_num_set }"> --%>
-									<%--現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-									<%-- <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option> --%>
-								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
+								<c:forEach var="num" items="${class_num_set }">
+									<%--現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
+									<option value="${num.classNum }" <c:if test="${num.classNum==f2 }">selected</c:if>>${num.classNum }</option>
+								</c:forEach>
 							</select>
 						</div>
 					</td>
@@ -71,14 +65,12 @@
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f3-select">科目</label></div>
 							<select class="form-select" id="subject-f3-select" name="f3">
-								<% for (TestListStudent name : subject_set) { %>
-									<option value=<%=name.getSubjectName() %> <c:if test="${num==f3 }">selected</c:if>><%=name.getSubjectName() %></option>
-								<% } %>
-								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
-										<%--現在のsubjectと選択されていたf3が一致していた場合selectedを追記 --%>
-										<%-- <option value="${subject }" <c:if test="${subject==f3 }">selected</c:if>>${subject }</option> --%>
-								<%-- </c:forEach> --%>
+
 								<option value="null" selected>---------------</option>
+								<c:forEach var="name" items="${subject_set }">
+									<%--現在のnameと選択されていたf3が一致していた場合selectedを追記 --%>
+									<option value="${name.subjectName }" <c:if test="${name.subjectName==f3 }">selected</c:if>>${name.subjectName }</option>
+								</c:forEach>
 							</select>
 						</div>
 					</td>
@@ -101,7 +93,7 @@
 						<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f4-select" >学生番号</label></div>
-							<input id="student-f4-select" name="f4" required>
+							<input id="student-f4-select" name="f4"  placeholder="学生番号を入力してください" maxlength="10" required>
 						</div>
 						</td>
 						<td>
@@ -148,7 +140,9 @@
 				<%}else if(num == 11 || num == 22){ %>
 					<font color="Cyan">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</font>
 				<%}else if (num == 2){ %>
+					<%-- 学生別成績参照結果 --%>
 					<c:choose>
+						<%-- 検索後で情報があった場合 --%>
 						<c:when test="${tests.size()>0}">
 							<p>氏名：${student.name }(${student.no })</p>
 							<table class="table table-hover">
@@ -168,6 +162,7 @@
 								</c:forEach>
 							</table>
 						</c:when>
+						<%-- 検索後で情報が無かった場合 --%>
 						<c:otherwise>
 							成績情報が存在しませんでした
 						</c:otherwise>
@@ -176,4 +171,3 @@
 		</section>
 	</c:param>
 </c:import>
-

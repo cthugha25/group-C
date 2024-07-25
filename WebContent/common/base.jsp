@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<title>得点管理システム</title>
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/bootstrap.min.css" />
 </head>
@@ -23,7 +24,7 @@
 				<br>
 				<label>成績管理</label>
 				<ul>
-					<li><a href="#!">成績登録</a></li>
+					<li><a href="../test/Test_regist_filter">成績登録</a></li>
 					<li><a href="../test/Test_list">成績参照</a></li>
 				</ul>
 				<a href="../subject/Subject_list">科目管理</a>

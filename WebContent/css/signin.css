@@ -23,3 +23,57 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+/* login.jspのcss */
+.box {
+	border: rgb(210, 242, 205) 1px solid;
+	text-align: center;
+	width: 600px;
+	height: 350px;
+	margin: 30px auto;
+	padding-bottom: 10px;
+}
+.box h2 {
+	background: rgb(210, 242, 205);
+	margin: 0px;
+	padding: 5px;
+}
+.box p {
+    display: inline-block;
+    width: 90px;
+    vertical-align: baseline;
+}
+.box label {
+	cursor: pointer;
+}
+.box ul li {
+	margin-top: 5px;
+}
+#id, #password {
+	height: 50px;
+	width: 450px;
+	margin: 10px;
+	padding: 10px;
+}
+#login {
+	height: 45px;
+	width: 170px;
+	margin: 10px;
+	cursor: pointer;
+	background: rgb(210, 242, 205);
+	border-radius: 5px;
+	border-style: none;
+}
+/* logout.jspのcss */
+.logout h2 {
+	background: rgb(210, 242, 205);
+	margin: 10px 0;
+	padding: 5px 20px;
+}
+.logout p {
+	text-align: center;
+	background:#EEEEEE;
+	padding: 5px;
+}
+.logout a {
+	padding: 5px 20px;
+}

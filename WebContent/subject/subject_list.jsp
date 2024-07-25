@@ -5,7 +5,13 @@
 
 <c:import url = "/common/base.jsp">
 	<c:param name="title">
-		<div class="title"><h3>得点管理システム</h3></div>
+		<div class="title">
+			<h1>得点管理システム</h1>
+			<c:if test="${teacher!=null}">
+				<p>${teacher.name }様</p>
+				<a href="../login/Logout_execute">ログアウト</a>
+			</c:if>
+		</div>
 	</c:param>
 
 	<c:param name="scripts"></c:param>
@@ -14,6 +20,9 @@
 		<section class="mo-4">
 			<div class="student-management">
 				<h2 class="h3 mb-3 fw-norma  bg-opacity-10 py-2 px-4">科目管理</h2>
+			</div>
+			<div class="my-2 text-end px4">
+				<a href="StudentCreate.action">新規登録</a>
 			</div>
 			<c:choose>
 				<%-- 科目情報あり --%>

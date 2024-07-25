@@ -93,7 +93,6 @@ public class StudentDao extends DAO {
 				student.setAttend(rSet.getBoolean("IS_ATTEND"));
 				student.setSchool(school);
 				student.setGender(rSet.getString("GENDER"));
-				student.setBirthday(rSet.getString("BIRTHDAY"));
 				student.setHurigana(rSet.getString("HURIGANA"));
 				// リストに追加
 				list.add(student);
@@ -270,75 +269,6 @@ public class StudentDao extends DAO {
 		}
 		return list;
 	}
-
-//	// 学生インスタンスをデータベースに保存する
-//	public boolean save(Student student) throws Exception{
-//		// コネクションを確立
-//		Connection connection = getConnection();
-//		// プリペアードステートメント
-//		PreparedStatement statement = null;
-//		// 実行件数
-//		int count = 0;
-//
-//		try {
-//			// データベースから学生を取得
-//			Student old = get(student.getNo());
-//			if (old == null) {
-//				//学生が存在しなかった場合
-//				// プリペアードステートメントにINSERT文をセット
-//				statement = connection.prepareStatement(
-//						"insert into student(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
-//				// プリペアードステートメントに値をバインド
-//				statement.setString(1, student.getNo());
-//				statement.setString(2, student.getName());
-//				statement.setInt(3, student.getEntYear());
-//				statement.setString(4, student.getClassNum());
-//				statement.setBoolean(5, student.isAttend());
-//				statement.setString(6, student.getSchool().getCd());
-//			} else {
-//				// 学生が存在した場合
-//				// プリペアードステートメントにUPDATE文をセット
-//				statement = connection.prepareStatement(
-//						"update student set name=?, ent_year=?, class_num=?, is_attend=? where no=?");
-//				// プリペアードステートメントに値をバインド
-//				statement.setString(1, student.getName());
-//				statement.setInt(2, student.getEntYear());
-//				statement.setString(3, student.getClassNum());
-//				statement.setBoolean(4, student.isAttend());
-//				statement.setString(5, student.getNo());
-//			}
-//
-//			// プリペアードステートメントを実行
-//			count = statement.executeUpdate();
-//
-//		} catch (Exception e) {
-//			throw e;
-//		} finally {
-//			// プリペアードステートメントを閉じる
-//			if (statement != null) {
-//				try {
-//					statement.close();
-//				} catch (SQLException sqle) {
-//					throw sqle;
-//				}
-//			}
-//			// コネクションを閉じる
-//			if (connection != null) {
-//				try {
-//					connection.close();
-//				} catch (SQLException sqle) {
-//					throw sqle;
-//				}
-//			}
-//		}
-//
-//		if (count > 0) {
-//			// 実行件数が1件以上ある場合
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
 
 	// 入学年度全表示
 	public List<Student> AllEntYear(School school) throws Exception {
