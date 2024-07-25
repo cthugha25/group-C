@@ -22,10 +22,15 @@ public class TeacherDao extends DAO {
 		// プリペアードステートメント実行
 		ResultSet rs = st.executeQuery();
 
+		// 学校Daoを初期化
+		SchoolDao schoolDao = new SchoolDao();
+
 		// 教師インスタンスに検索結果セット
 		rs.next();
 		teacher.setId(rs.getString("ID"));
 		teacher.setName(rs.getString("NAME"));
+		// 学校フィールドにはログインした教師が所属する学校コードをセット
+		teacher.setSchool(schoolDao.get(rs.getString("SCHOOL_CD")));
 
 		// プリペアードステートメントとコネクションを閉じる
 		st.close();
@@ -55,6 +60,7 @@ public class TeacherDao extends DAO {
 		// 学校Daoを初期化
 		SchoolDao schoolDao = new SchoolDao();
 
+		// 教師インスタンスに検索結果セット
 		while (rs.next()) {
 			teacher=new Teacher();
 			teacher.setId(rs.getString("ID"));

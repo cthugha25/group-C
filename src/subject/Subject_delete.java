@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDao;
+import dao.TeacherDao;
 
 @WebServlet(urlPatterns={"/subject/Subject_delete"})
 public class Subject_delete extends HttpServlet {
@@ -21,23 +24,29 @@ public class Subject_delete extends HttpServlet {
 	) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 		try {
-			// Daoインスタンス化
-			SubjectDao dao=new SubjectDao();
+			// ログイン状態チェック　未ログインならログインページに
+			HttpSession session=request.getSession();
+			if (session.getAttribute("teacher")==null) {
+				String error="ログアウト状態ではシステムを使用できません。";
+				request.setAttribute("error",error);
+				request.getRequestDispatcher("../login/login.jsp")
+					.forward(request, response);
+			}
 
-			// ログインした教師の情報受け取り　後で変える！
+			// ログイン中の教師情報を取得して学校コードをセット
+			TeacherDao teacher_dao=new TeacherDao();
+			Teacher teacher=teacher_dao.get(session.getAttribute("id").toString());
 			School school=new School();
-			school.setCd("oom");
+			school.setCd(teacher.getSchool().getCd());
 
-			// 科目コード取得
 			String subjectCd=request.getParameter("cd");
 
-			// 科目情報表示メソッド実行
+			SubjectDao dao=new SubjectDao();
 			Subject subject=dao.get(subjectCd, school);
 
-			// リクエストに科目情報をセット
+			request.setAttribute("teacher", session.getAttribute("teacher"));
 			request.setAttribute("subject", subject);
 
-			// 科目削除画面にフォワード
 			request.getRequestDispatcher("subject_delete.jsp")
 				.forward(request, response);
 

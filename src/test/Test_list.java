@@ -10,39 +10,33 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.School;
-import bean.Student;
-import dao.StudentDao;
+import bean.TestListStudent;
+import bean.TestListSubject;
+import dao.TestListSubjectDao;
 
-// 成績参照の検索フォームの送信先
 @WebServlet(urlPatterns={"/test/Test_list"})
 public class Test_list extends HttpServlet {
+
 	public void doGet (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
 		PrintWriter out=response.getWriter();
 		try {
-			// 検索前フラグ
 			String f = "li";
+			TestListSubjectDao dao=new TestListSubjectDao();
+			List<TestListSubject> ent_year_set=dao.AllEntYear_test();
+			List<TestListSubject> class_num_set=dao.AllClassNum_test();
+			List<TestListStudent> subject_set=dao.AllSubject_test();
+			List<TestListStudent> no_set=dao.AllNo_test();
 
-			// Daoインスタンス化
-			StudentDao dao=new StudentDao();
-
-			// ログインした教師の情報受け取り　後で変える！
-			School school=new School();
-			school.setCd("oom");
-
-			// セレクトボックスに表示するデータ取得
-			List<Student> ent_year_set=dao.AllEntYear(school);
-			List<Student> class_num_set=dao.AllClassNum(school);
-
-			// 値セット
 			request.setAttribute("f", f);
+			request.setAttribute("num", 0);
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
+			request.setAttribute("subject_set", subject_set);
+			request.setAttribute("no_set", no_set);
 
-			// 学生一覧にフォワード
-			request.getRequestDispatcher("test_list_student.jsp")
+			request.getRequestDispatcher("test_list.jsp")
 				.forward(request, response);
 
 		} catch (Exception e) {
