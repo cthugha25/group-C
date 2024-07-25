@@ -24,7 +24,7 @@ public class TestListSubject implements Serializable {
 	public void setStudentNo(String studentNo){
 		this.studentNo = studentNo;
 	}
-	public String getstudentName(){
+	public String getStudentName(){
 		return studentName;
 	}
 	public void setStudentName(String studentName){
@@ -43,9 +43,9 @@ public class TestListSubject implements Serializable {
 		this.points = points;
 	}
 	public String getPoint(int key){
-
+		return String.valueOf(this.points.get(key));
 	}
 	public void putPoint(int key, int value){
-
+		this.points.put(key, value);
 	}
 }
