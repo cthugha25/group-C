@@ -11,7 +11,7 @@
 </head>
 
 <body>
-
+<div class="warraper">
 ${param.title}
 ${param.menubar}
 ${param.scripts}
@@ -39,11 +39,10 @@ ${param.scripts}
 	${param.student}
 	${param.Grades}
 	${param.menu}
-
 </div>
-</body>
-
 <footer>
 	<div class="footer">©2024 TIC <br> 大原学園</div>
 </footer>
+</div>
+</body>
 </html>

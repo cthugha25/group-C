@@ -9,9 +9,76 @@ import java.util.List;
 
 import bean.School;
 import bean.Subject;
+import bean.Teacher;
 
 public class SubjectDao extends DAO {
 	//	SUBJECTテーブルのデータを全て表示する
+
+	public void save(Subject subject) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = null;
+
+        try {
+            st = con.prepareStatement(
+                "INSERT INTO SUBJECT (CD, NAME) VALUES (?, ?)");
+            st.setString(1, subject.getCode());
+            st.setString(2, subject.getName());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+    }
+
+
+	public int insertSubject(School school, String subjectCode, String subjectName, Teacher teacher) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = null;
+        int count = 0;
+
+        try {
+            st = con.prepareStatement(
+                "insert into SUBJECT (SCHOOL_CD, CD, NAME, TEACHER_ID) values (?, ?, ?, ?)");
+            st.setString(1, school.getCd());
+            st.setString(2, subjectCode);
+            st.setString(3, subjectName);
+            st.setString(4, teacher.getId()); // TeacherクラスにgetIdメソッドが存在すると仮定
+            count = st.executeUpdate();
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            if (st != null) {
+                try {
+                    st.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+            if (con != null) {
+                try {
+                    con.close();
+                } catch (SQLException sqle) {
+                    throw sqle;
+                }
+            }
+        }
+        return count;
+    }
+
 	public List<Subject> selectAllSubject(School school) throws Exception {
 		// リスト初期化
 		List<Subject> list=new ArrayList<>();

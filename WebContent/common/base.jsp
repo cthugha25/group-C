@@ -11,6 +11,7 @@
 </head>
 
 <body>
+<div class="warrper">
 	${param.title}
 	${param.scripts}
 	<div class="container">
@@ -30,9 +31,9 @@
 		</div>
 		${param.content}
 	</div>
-</body>
-
 <footer>
 	<div class="footer">©2024 TIC <br> 大原学園</div>
 </footer>
+</div>
+</body>
 </html>
