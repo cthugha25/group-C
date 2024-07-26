@@ -40,7 +40,7 @@
 								<td>${subject.cd}</td>
 								<td>${subject.name}</td>
 								<%-- 科目情報変更リンク --%>
-								<td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
+								<td><a href="../subject/Subject_update_while?no=${subject.cd}">変更</a></td>
 								<%-- 科目情報削除リンク --%>
 								<td><a href="Subject_delete?cd=${subject.cd}">削除</a></td>
 							</tr>

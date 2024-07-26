@@ -31,9 +31,9 @@
 	            <div class="mb-3">
 	                <label for="classNum" class="form-label">クラス</label>
 	                <select class="form-control" id="classNum" name="classNum">
-	                    <c:forEach var="num" items="${class_num_set }">
+	                    <c:forEach var="num" items="${class_num_set}">
 					    <%--現在のnumrと選択されていたf2が一致していた場合selectedを追記 --%>
-					    <option value="${num }" <c:if test="${num==f2 }">selectes</c:if>>${num }</option>
+					    <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option>
 				    </c:forEach>
 	                </select>
 	            </div>

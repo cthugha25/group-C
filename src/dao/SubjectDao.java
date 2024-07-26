@@ -183,4 +183,16 @@ public class SubjectDao extends DAO {
 			return false;
 		}
 	}
+
+	// 科目のデータを更新する
+    public int update(Subject subject) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = con.prepareStatement("update SUBJECT set NAME=? where CD=?");
+        st.setString(1, subject.getName());
+        st.setString(2, subject.getCd());
+        int linesUpdated = st.executeUpdate();
+        st.close();
+        con.close();
+        return linesUpdated;
+    }
 }

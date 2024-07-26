@@ -26,7 +26,6 @@
 			<p><a href="../student/Student_list">学生管理</a><p>
 		</div>
 	</c:param>
-
 	<c:param name="Grades">
 		<div class="Grades">
 			<div class="Grade-management" >
@@ -40,7 +39,6 @@
 			</div>
 		</div>
 	</c:param>
-
 	<c:param name="menu">
 		<div class="Course-Management" >
 			<p><a href="../subject/Subject_list">科目管理</a></p>
