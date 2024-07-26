@@ -99,7 +99,7 @@
 										</c:choose>
 									</td>
 									<%-- 生徒情報変更リンク --%>
-									<td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
+									<td><a href="../student/Student_update_while?no=${student.no}">変更</a></td>
 									<%-- 生徒情報削除リンク --%>
 									<td><a href="StudentDelete.action?no=${student.no}">削除</a></td>
 								</tr>
