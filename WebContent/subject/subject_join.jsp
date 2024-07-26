@@ -36,7 +36,7 @@
                 </div>
                 <div class="mt-2 text-warning">${errors.get("error")}</div>
                 <div class="mb-3 form-link">
-                    <a href="subject_join.jsp">戻る</a>
+                    <a href="Subject_list">戻る</a>
                 </div>
             </form>
         </section>
