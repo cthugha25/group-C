@@ -40,6 +40,7 @@ public class Subject_list extends HttpServlet {
 			School school=new School();
 			school.setCd(teacher.getSchool().getCd());
 
+
 			// 科目一覧表示メソッド実行
 			SubjectDao dao=new SubjectDao();
 			List<Subject> list=dao.selectAllSubject(school);
