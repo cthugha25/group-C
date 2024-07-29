@@ -27,11 +27,11 @@
 				</ul>
 			</c:if>
 
-			<form action="../login/Login_execute" method="get" class="login_form">
+			<form action="../login/Login_execute" method="post" class="login_form">
 				<p>ID</p>
-				<input type="text" name="id" id="id" placeholder="半角でご入力ください" max="20" required>
+				<input type="text" name="id" id="id" placeholder="半角でご入力ください" max="20" <c:if test="${id!=null}">value="${id}"</c:if> required>
 				<p>パスワード</p>
-				<input type="password" name="password" id="password" placeholder="20文字以内の半角英数字でご入力ください" max="20" required>
+				<input type="password" name="password" id="password" placeholder="20文字以内の半角英数字でご入力ください" max="20" <c:if test="${password!=null}">value="${password}"</c:if> required>
 				<label><input type="checkbox" id="chk_d_ps">パスワードを表示</label>
 				<br>
 				<input type="submit" id="login" value="ログイン">

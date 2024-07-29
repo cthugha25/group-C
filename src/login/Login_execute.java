@@ -15,7 +15,7 @@ import dao.TeacherDao;
 @WebServlet(urlPatterns={"/login/Login_execute"})
 public class Login_execute extends HttpServlet {
 
-	public void doGet (
+	public void doPost (
 		HttpServletRequest request, HttpServletResponse response
 	) throws ServletException, IOException {
 		try {
