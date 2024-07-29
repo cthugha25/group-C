@@ -48,6 +48,16 @@
 								</c:forEach>
 							</select>
 						</div>
+
+						<div class="col-2 form-check text-center">
+							<label class="form-check-label" for="student-f3-check">在学中 　
+								<%--パラメータf3が存在している場合checkboxを追記 --%>
+								<input class="form-check-input" type="checkbox"
+								id="student-f3-check" name="f3" value="True"
+								<c:if test="${!empty f3 }">checked</c:if> />
+							</label>
+						</div>
+
 						<div class="col-2 text-center">
 							<input type="submit" class="btn btn-secondary" id="filter-button" value="絞込む">
 						</div>

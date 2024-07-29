@@ -120,10 +120,7 @@ public class StudentDao extends DAO {
 
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
-		// 在学フラグがtrueの場合
-		if(isAttend) {
-			conditionIsAttend = "and is_attend=true";
-		}
+		conditionIsAttend = "and is_attend=?";
 
 		try {
 			// プリペアードステートメントにSQL文をセット
@@ -134,6 +131,8 @@ public class StudentDao extends DAO {
 			statement.setInt(2, entYear);
 			// プリペアードステートメントにクラス番号をバインド
 			statement.setString(3, classNum);
+			// プリペアードステートメントに在学状況をバインド
+			statement.setBoolean(4, isAttend);
 			// プリペアードステートメント実行
 			rSet = statement.executeQuery();
 			// リストへの格納処理実行
@@ -178,10 +177,7 @@ public class StudentDao extends DAO {
 
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
-		// 在学フラグがtrueの場合
-		if(isAttend) {
-			conditionIsAttend = "and is_attend=true";
-		}
+		conditionIsAttend = "and is_attend=?";
 
 		try {
 			// プリペアードステートメントにSQL文をセット
@@ -190,6 +186,8 @@ public class StudentDao extends DAO {
 			statement.setString(1, school.getCd());
 			// プリペアードステートメントに入学年度をバインド
 			statement.setInt(2, entYear);
+			// プリペアードステートメントに在学状況をバインド
+			statement.setBoolean(3, isAttend);
 			// プリペアードステートメント実行
 			rSet = statement.executeQuery();
 			// リストへの格納処理実行
@@ -229,20 +227,19 @@ public class StudentDao extends DAO {
 		// リザルトセット
 		ResultSet rSet = null;
 		// SQL文の条件
-		String order = " order by no asc";
+		String order = " order by ent_year, no";
 
 		// SQL文の在学フラグ条件
 		String conditionIsAttend = "";
-		// 在学フラグがtrueの場合
-		if(isAttend) {
-			conditionIsAttend = "and is_attend=true";
-		}
+		conditionIsAttend = "and is_attend=?";
 
 		try {
 			// プリペアードステートメントにSQL文をセット
 			statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
 			// プリペアードステートメントに学校コードをバインド
 			statement.setString(1, school.getCd());
+			// プリペアードステートメントに在学状況をバインド
+			statement.setBoolean(2, isAttend);
 			// プリペアードステートメント実行
 			rSet = statement.executeQuery();
 			// リストへの格納処理実行
@@ -326,25 +323,25 @@ public class StudentDao extends DAO {
 		return list;
 	}
 
-	// 特定の学生のデータを取得する
-    public Student getStudent(String studentCd) throws Exception {
-        Student student = new Student();
-        Connection con = getConnection();
-        PreparedStatement st = con.prepareStatement(
-        		"select NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND from STUDENT where NO=?");
-        st.setString(1, studentCd);
-        ResultSet rs = st.executeQuery();
-        if (rs.next()) {
-            student.setNo(rs.getString("NO"));
-            student.setName(rs.getString("NAME"));
-            student.setEntYear(rs.getInt("ENT_YEAR"));
-            student.setClassNum(rs.getString("CLASS_NUM"));
-            student.setAttend(rs.getBoolean("IS_ATTEND"));
-        }
-        st.close();
-        con.close();
-        return student;
-    }
+//	// 特定の学生のデータを取得する
+//    public Student getStudent(String studentCd) throws Exception {
+//        Student student = new Student();
+//        Connection con = getConnection();
+//        PreparedStatement st = con.prepareStatement(
+//        		"select NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND from STUDENT where NO=?");
+//        st.setString(1, studentCd);
+//        ResultSet rs = st.executeQuery();
+//        if (rs.next()) {
+//            student.setNo(rs.getString("NO"));
+//            student.setName(rs.getString("NAME"));
+//            student.setEntYear(rs.getInt("ENT_YEAR"));
+//            student.setClassNum(rs.getString("CLASS_NUM"));
+//            student.setAttend(rs.getBoolean("IS_ATTEND"));
+//        }
+//        st.close();
+//        con.close();
+//        return student;
+//    }
 
 	 // 学生のデータを更新する
 	public int update(Student stu) throws Exception {

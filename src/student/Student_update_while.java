@@ -57,7 +57,7 @@ public class Student_update_while extends HttpServlet {
 
 			String student_cd = request.getParameter("no");
 
-			Student student=dao.getStudent(student_cd);
+			Student student=dao.get(student_cd, school);
 			List<Student> class_num_set=dao.AllClassNum(school);
 			List<Student> list=dao.filter(school, isAttend);
 

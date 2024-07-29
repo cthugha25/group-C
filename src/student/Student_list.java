@@ -41,7 +41,6 @@ public class Student_list extends HttpServlet {
 
 			// 在学フラグのデフォルトをtrue(在学中)にする
 			boolean isAttend = true;
-			String isAttendStr="True";
 
 			// 入学年度、クラス番号、学生一覧表示メソッド実行
 			StudentDao dao=new StudentDao();
@@ -53,7 +52,7 @@ public class Student_list extends HttpServlet {
 			request.setAttribute("teacher", session.getAttribute("teacher"));
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
-			request.setAttribute("f3", isAttendStr);
+			request.setAttribute("f3", String.valueOf(isAttend));
 			request.setAttribute("students", list);
 
 			// 学生一覧にフォワード
