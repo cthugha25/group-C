@@ -364,4 +364,27 @@ public class StudentDao extends DAO {
 		con.close();
 		return line;
 	}
+
+	public int insert(School school,Student student) throws Exception {
+		Connection con=getConnection();
+
+		PreparedStatement st=con.prepareStatement(
+				"insert into STUDENT "
+				+ "(NO,NAME,ENT_YEAR,CLASS_NUM,HURIGANA,IS_ATTEND,GENDER,SCHOOL_CD)"
+				+ "values(?,?,?,?,?,?,?,?)");
+		st.setString(1, student.getNo());
+		st.setString(2, student.getName());
+		st.setInt(3, student.getEntYear());
+		st.setString(4, student.getClassNum());
+		st.setString(5, student.getHurigana());
+		st.setBoolean(6, student.isAttend());
+		st.setString(7, student.getGender());
+		st.setString(8, school.getCd());
+
+		int line=st.executeUpdate();
+
+		st.close();
+		con.close();
+		return line;
+	}
 }

@@ -26,6 +26,7 @@ public class Login_execute extends HttpServlet {
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 
+
 			// Daoインスタンス化
 			TeacherDao dao=new TeacherDao();
 			// ログインメソッド実行
