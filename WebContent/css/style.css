@@ -1,17 +1,14 @@
 /*タイトルのcss*/
-.title{
-	background-color: rgb(226, 245, 224);
-	text-align: center;
-	padding: 10px;
+.title {
+    background-color: rgb(226, 245, 224);
+    display: flex; /* フレックスボックスを使用して配置 */
+    justify-content: flex-end; /* 右寄せ */
+    align-items: center; /* 垂直方向の中央揃え */
+    padding: 10px;
 }
-.title p {
-	display: inline-block;
-	margin-right: 10px;
-}
-.title a {
-	display: inline-block;
-	margin-right: -1000px;
-	margin-top: 0px;
+
+.title p, .title a {
+    margin: 0 10px; /* 要素間に適切なスペースを追加 */
 }
 /*サイドバーのcss*/
 .container{
