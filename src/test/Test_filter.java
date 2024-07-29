@@ -36,7 +36,7 @@ public class Test_filter extends HttpServlet {
 				request.getRequestDispatcher("../login/login.jsp")
 					.forward(request, response);
 			}
-			if (request.getParameter("stu") != null){
+			if (request.getParameter("sj") != null){
 				TeacherDao teacher_dao=new TeacherDao();
 				Teacher teacher=teacher_dao.get(session.getAttribute("id").toString());
 				School school=new School();

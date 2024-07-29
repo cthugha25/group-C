@@ -47,39 +47,39 @@
 					<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f1-select">入学年度</label></div>
-							<select class="form-select" id="subject-f1-select" name="f1">
+							<select class="form-select" id="subject-f1-select" name="f1" style="width: 100px;">
 								<% for (TestListSubject ent_year : ent_year_set) { %>
 									<option value=<%=ent_year.getEntYear() %> <c:if test="${year==f1 }">selected</c:if>><%=ent_year.getEntYear() %></option>
 								<% } %>
-								<option value="null" selected>---------------</option>
+								<option value="null" selected>--------</option>
 							</select>
 						</div>
 					</td>
 					<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label"  for="student-f2-select">クラス</label></div>
-							<select class="form-select" id ="subject-f2-select" name="f2">
+							<select class="form-select" id ="subject-f2-select" name="f2" style="width: 100px;">
 								<% for (TestListSubject number : class_num_set) { %>
 									<option value=<%=number.getClassNum() %> <c:if test="${num==f2 }">selected</c:if>><%=number.getClassNum() %></option>
 								<% } %>
-								<option value="null" selected>---------------</option>
+								<option value="null" selected>--------</option>
 							</select>
 						</div>
 					</td>
 					<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f3-select">科目</label></div>
-							<select class="form-select" id="subject-f3-select" name="f3">
+							<select class="form-select" id="subject-f3-select" name="f3" style="width: 180px;">
 								<% for (TestListStudent name : subject_set) { %>
 									<option value=<%=name.getSubjectName() %> <c:if test="${num==f3 }">selected</c:if>><%=name.getSubjectName() %></option>
 								<% } %>
-								<option value="null" selected>---------------</option>
+								<option value="null" selected>--------</option>
 							</select>
 						</div>
 					</td>
 					<td>
 						<div class="col-2 text-center">
-							<p><button class="btn btn-secondary" id="subjectfilter-button" name="stu">検索</button><br></p>
+							<p><button class="btn btn-secondary" id="subjectfilter-button" name="sj">検索</button><br></p>
 						</div>
 					</td>
 				</form>
@@ -96,12 +96,12 @@
 						<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f4-select" >学生番号</label></div>
-							<input type="number" id="student-f4-select" name="f4" placeholder="学生番号を入力してください" maxlength="10" required>
+							<input type="number" id="student-f4-select" name="f4" style="width: 250px;" placeholder="学生番号を入力してください" maxlength="10" required>
 						</div>
 						</td>
 						<td>
 						<div class="col-2 text-center">
-							<button class="btn btn-secondary" id="studentfilter-button" name="sub">検索</button>
+							<button class="btn btn-secondary" id="studentfilter-button" name="st">検索</button>
 						</div>
 						<div class="mt-2 text-warning">${erroers.get("f1")}</div>
 						</td>
@@ -117,9 +117,8 @@
 							<th>クラス</th>
 							<th>学生番号</th>
 							<th>氏名</th>
-							<%for (TestListStudent testnum : numlist){ %>
-								<th><a title="テスト情報表示" style="color: black;text-decoration: none;"" href="<%= request.getContextPath() %>/test/test_average?num=<%=testnum.getNum() %>&year=<%= year %>&classnum=<%= classnum %>"><%=testnum.getNum() %>回</a></th>
-							<%} %>
+							<th><a title="テスト情報表示" style="color: black;text-decoration: none;"" href="<%= request.getContextPath() %>/test/test_average?num=1&year=<%= year %>&classnum=<%= classnum %>">1回</a></th>
+							<th><a title="テスト情報表示" style="color: black;text-decoration: none;"" href="<%= request.getContextPath() %>/test/test_average?num=2&year=<%= year %>&classnum=<%= classnum %>">2回</a></th>
 						</tr>
 						<%for (TestListSubject test : list){ %>
 							<tr>
@@ -127,13 +126,16 @@
 								<td><%=test.getClassNum() %></td>
 								<td><%=test.getStudentNo() %></td>
 								<td><%=test.getStudentName() %></td>
-								<%for (TestListStudent testnum : numlist){ %>
-									<%if(Integer.parseInt(test.getPoint(testnum.getNum())) != 9999){ %>
-										<th><%=test.getPoint(testnum.getNum()) %></th>
+									<%if(Integer.parseInt(test.getPoint(1)) != 9999){ %>
+										<th><%=test.getPoint(1) %></th>
 									<%} else{ %>
 										<th>-</th>
 									<%} %>
-								<%} %>
+									<%if(Integer.parseInt(test.getPoint(2)) != 9999){ %>
+										<th><%=test.getPoint(2) %></th>
+									<%} else{ %>
+										<th>-</th>
+									<%} %>
 							</tr>
 						<%} %>
 					</table>

@@ -32,7 +32,7 @@
 			<div class="student-management">
 				<h2 class="h3 mb-3 fw-norma  bg-opacity-10 py-2 px-4">テスト情報一覧</h2>
 			</div>
-			<a href="../test/Test_list">成績参照</a>
+			<a href="../test/Test_list">成績参照</a><br>
 					<c:choose>
 						<c:when test="${list.size()>0}">
 							<form action="test_average" method="get">
