@@ -2,13 +2,19 @@
 .title {
     background-color: rgb(226, 245, 224);
     display: flex; /* フレックスボックスを使用して配置 */
-    justify-content: flex-end; /* 右寄せ */
     align-items: center; /* 垂直方向の中央揃え */
     padding: 10px;
 }
 
+.title h1 {
+    margin: 0; /* デフォルトのマージンをリセット */
+    text-align: center; /* 中央揃え */
+    flex: 1; /* フレックスアイテムを可能な限り広げる */
+}
+
 .title p, .title a {
     margin: 0 10px; /* 要素間に適切なスペースを追加 */
+    white-space: nowrap; /* 要素が折り返されないようにする */
 }
 /*サイドバーのcss*/
 .container{
