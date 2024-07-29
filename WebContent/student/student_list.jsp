@@ -22,7 +22,7 @@
 				<h2 class="h3 mb-3 fw-norma  bg-opacity-10 py-2 px-4">学生管理</h2>
 			</div>
 				<div class="my-2 text-end px4">
-					<a href="StudentCreate.action">新規登録</a>
+					<a href="student_join.jsp">新規登録</a>
 				</div>
 
 				<form method="get" action="Student_filter">
