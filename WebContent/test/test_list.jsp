@@ -144,6 +144,9 @@
 					<font color="Cyan">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</font>
 				<%}else if (num == 2){ %>
 					<c:choose>
+						<c:when test="${student==null}">
+							学生情報が存在しません
+						</c:when>
 						<c:when test="${tests.size()>0}">
 							<p>氏名：${student.name }(${student.no })</p>
 							<table class="table table-hover">
@@ -164,6 +167,8 @@
 							</table>
 						</c:when>
 						<c:otherwise>
+							氏名：${student.name }(${student.no })
+							<br>
 							成績情報が存在しませんでした
 						</c:otherwise>
 					</c:choose>

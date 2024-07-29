@@ -34,14 +34,14 @@ public class TestListStudentDao extends DAO {
 			// プリペアードステートメント実行
 			rSet = statement.executeQuery();
 
-			while (rSet.next()) {
-				TestListStudent testList=new TestListStudent();
-				testList.setSubjectName(rSet.getString("NAME"));
-				testList.setSubjectCd(rSet.getString("SUBJECT_CD"));
-				testList.setNum(rSet.getInt("NO"));
-				testList.setPoint(rSet.getInt("POINT"));
-				list.add(testList);
-			}
+				while (rSet.next()) {
+					TestListStudent testList=new TestListStudent();
+					testList.setSubjectName(rSet.getString("NAME"));
+					testList.setSubjectCd(rSet.getString("SUBJECT_CD"));
+					testList.setNum(rSet.getInt("NO"));
+					testList.setPoint(rSet.getInt("POINT"));
+					list.add(testList);
+				}
 		}catch(Exception e){
 			throw e;
 		}finally {

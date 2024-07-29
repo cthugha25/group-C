@@ -101,12 +101,28 @@ public class Test_filter extends HttpServlet {
 				String studentNo=request.getParameter("f4");
 
 				// メソッド実行
-				Student student = stu_dao.get(studentNo, school);	// 学生情報取得
-				tests = dao.filter(student);		// 学生別成績参照
 				// セレクトボックス用データ取得
 				List<TestListSubject> ent_year_set=sub_dao.AllEntYear_test(school);
 				List<TestListSubject> class_num_set=sub_dao.AllClassNum_test(school);
 				List<TestListStudent> subject_set=sub_dao.AllSubject_test(school);
+				Student student = stu_dao.get(studentNo, school);	// 学生情報取得
+
+				// 学生が存在しない場合
+				if (student == null) {
+					// 値セット
+					request.setAttribute("title", "(学生)");
+					request.setAttribute("num", 2);
+					request.setAttribute("student", student);
+					request.setAttribute("ent_year_set", ent_year_set);
+					request.setAttribute("class_num_set", class_num_set);
+					request.setAttribute("subject_set", subject_set);
+
+					// 学生一覧にフォワード
+					request.getRequestDispatcher("test_list.jsp")
+						.forward(request, response);
+				}
+
+				tests = dao.filter(student);		// 学生別成績参照
 
 				// 値セット
 				request.setAttribute("title", "(学生)");
@@ -116,7 +132,6 @@ public class Test_filter extends HttpServlet {
 				request.setAttribute("ent_year_set", ent_year_set);
 				request.setAttribute("class_num_set", class_num_set);
 				request.setAttribute("subject_set", subject_set);
-
 
 				// 学生一覧にフォワード
 				request.getRequestDispatcher("test_list.jsp")
