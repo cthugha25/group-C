@@ -6,6 +6,8 @@
 <% int num = (int)request.getAttribute("num"); %>
 <% List<TestListSubject> list=(List<TestListSubject>)request.getAttribute("list"); %>
 <% List<TestListStudent> numlist=(List<TestListStudent>)request.getAttribute("numlist"); %>
+<% String year = (String)request.getAttribute("year"); %>
+<% String classnum = (String)request.getAttribute("classnum"); %>
 <% String subject = (String)request.getAttribute("subject"); %>
 <% List<TestListSubject> ent_year_set=(List<TestListSubject>)request.getAttribute("ent_year_set"); %>
 <% List<TestListSubject> class_num_set=(List<TestListSubject>)request.getAttribute("class_num_set"); %>
@@ -22,7 +24,12 @@
 
 <c:import url = "/common/base.jsp">
 	<c:param name="title">
-		<div class="title"><h3>得点管理システム</h3></div>
+		<div class="title"><h1>得点管理システム</h1>
+			<c:if test="${teacher!=null}">
+				<p>${teacher.name }様</p>
+				<a href="../login/Logout_execute">ログアウト</a>
+			</c:if>
+		</div>
 	</c:param>
 
 	<c:param name="scripts"></c:param>
@@ -36,16 +43,19 @@
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
 				<form action="test_filter" method="get">
 					<table>
-					<td>　　　科目情報&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+					<td>　　　科目情報&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f1-select">入学年度</label></div>
 							<select class="form-select" id="subject-f1-select" name="f1">
+								<% for (TestListSubject ent_year : ent_year_set) { %>
+									<option value=<%=ent_year.getEntYear() %> <c:if test="${year==f1 }">selected</c:if>><%=ent_year.getEntYear() %></option>
+								<% } %>
+								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
+										<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
+										<%-- <option value="${year }" <c:if test="${year==f1 }">selected</c:if>>${year }</option> --%>
+								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
-								<c:forEach var="year" items="${ent_year_set }">
-									<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-									<option value="${year.entYear }" <c:if test="${year.entYear==f1 }">selected</c:if>>${year.entYear }</option>
-								</c:forEach>
 							</select>
 						</div>
 					</td>
@@ -53,11 +63,14 @@
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label"  for="student-f2-select">クラス</label></div>
 							<select class="form-select" id ="subject-f2-select" name="f2">
-								<option value="null" selected>---------------</option>
-								<c:forEach var="num" items="${class_num_set }">
+								<% for (TestListSubject number : class_num_set) { %>
+									<option value=<%=number.getClassNum() %> <c:if test="${num==f2 }">selected</c:if>><%=number.getClassNum() %></option>
+								<% } %>
+								<%-- <c:forEach var="num" items="${class_num_set }"> --%>
 									<%--現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-									<option value="${num.classNum }" <c:if test="${num.classNum==f2 }">selected</c:if>>${num.classNum }</option>
-								</c:forEach>
+									<%-- <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option> --%>
+								<%-- </c:forEach> --%>
+								<option value="null" selected>---------------</option>
 							</select>
 						</div>
 					</td>
@@ -65,12 +78,14 @@
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f3-select">科目</label></div>
 							<select class="form-select" id="subject-f3-select" name="f3">
-
+								<% for (TestListStudent name : subject_set) { %>
+									<option value=<%=name.getSubjectName() %> <c:if test="${num==f3 }">selected</c:if>><%=name.getSubjectName() %></option>
+								<% } %>
+								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
+										<%--現在のsubjectと選択されていたf3が一致していた場合selectedを追記 --%>
+										<%-- <option value="${subject }" <c:if test="${subject==f3 }">selected</c:if>>${subject }</option> --%>
+								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
-								<c:forEach var="name" items="${subject_set }">
-									<%--現在のnameと選択されていたf3が一致していた場合selectedを追記 --%>
-									<option value="${name.subjectName }" <c:if test="${name.subjectName==f3 }">selected</c:if>>${name.subjectName }</option>
-								</c:forEach>
 							</select>
 						</div>
 					</td>
@@ -86,14 +101,14 @@
 						<td><div class="textarea1"><font color="Gold">　　　　入学年度とクラスと科目を選択してください</font></div></td>
 						</table>
 						<%} %>
-				<hr style="margin-left: 20px; margin-right: 20px; color="#f5f5f5" size="2">
+				<hr style="margin-left: 20px; margin-right: -20px; color="#f5f5f5" size="2">
 				<form action="test_filter" method="get">
 					<table>
-						<td>　　　学生情報&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						<td>　　　学生情報&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f4-select" >学生番号</label></div>
-							<input id="student-f4-select" name="f4"  placeholder="学生番号を入力してください" maxlength="10" required>
+							<input id="student-f4-select" name="f4" required>
 						</div>
 						</td>
 						<td>
@@ -115,7 +130,7 @@
 							<th>学生番号</th>
 							<th>氏名</th>
 							<%for (TestListStudent testnum : numlist){ %>
-								<th><%=testnum.getNum() %></th>
+								<th><a title="テスト情報表示" style="color: black;text-decoration: none;"" href="<%= request.getContextPath() %>/test/test_average?num=<%=testnum.getNum() %>&year=<%= year %>&classnum=<%= classnum %>"><%=testnum.getNum() %>回</a></th>
 							<%} %>
 						</tr>
 						<%for (TestListSubject test : list){ %>
@@ -140,9 +155,7 @@
 				<%}else if(num == 11 || num == 22){ %>
 					<font color="Cyan">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</font>
 				<%}else if (num == 2){ %>
-					<%-- 学生別成績参照結果 --%>
 					<c:choose>
-						<%-- 検索後で情報があった場合 --%>
 						<c:when test="${tests.size()>0}">
 							<p>氏名：${student.name }(${student.no })</p>
 							<table class="table table-hover">
@@ -162,7 +175,6 @@
 								</c:forEach>
 							</table>
 						</c:when>
-						<%-- 検索後で情報が無かった場合 --%>
 						<c:otherwise>
 							成績情報が存在しませんでした
 						</c:otherwise>
@@ -171,3 +183,4 @@
 		</section>
 	</c:param>
 </c:import>
+

@@ -8,19 +8,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import bean.School;
 import bean.TestListStudent;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends DAO {
 
 	// 入学年度全表示
-	public List<TestListSubject> AllEntYear_test() throws Exception {
+	public List<TestListSubject> AllEntYear_test(School school) throws Exception {
 		List<TestListSubject> list=new ArrayList<>();
 
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct ENT_YEAR from STUDENT");
+			"select distinct ENT_YEAR from STUDENT WHERE SCHOOL_CD = '"+school.getCd()+"'");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -36,13 +37,13 @@ public class TestListSubjectDao extends DAO {
 	}
 
 	// 入学年度全表示
-	public List<TestListSubject> AllClassNum_test() throws Exception {
+	public List<TestListSubject> AllClassNum_test(School school) throws Exception {
 		List<TestListSubject> list=new ArrayList<>();
 
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct CLASS_NUM from TEST");
+			"select distinct CLASS_NUM from TEST WHERE SCHOOL_CD = '"+school.getCd()+"'");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -58,13 +59,13 @@ public class TestListSubjectDao extends DAO {
 	}
 
 	// 教科名全表示
-	public List<TestListStudent> AllSubject_test() throws Exception {
+	public List<TestListStudent> AllSubject_test(School school) throws Exception {
 		List<TestListStudent> list=new ArrayList<>();
 
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct NAME from SUBJECT");
+			"select distinct NAME from SUBJECT WHERE SCHOOL_CD = '"+school.getCd()+"'");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -80,13 +81,13 @@ public class TestListSubjectDao extends DAO {
 	}
 
 	// 回数全表示
-	public List<TestListStudent> AllNo_test() throws Exception {
+	public List<TestListStudent> AllNo_test(School school) throws Exception {
 		List<TestListStudent> list=new ArrayList<>();
 
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct NO from TEST");
+			"select distinct NO from TEST WHERE SCHOOL_CD = '"+school.getCd()+"'");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -101,10 +102,10 @@ public class TestListSubjectDao extends DAO {
 		return list;
 	}
 
-	public List<TestListSubject> test_subjectfilter(String f1, String f2, String f3) throws Exception{
+	public List<TestListSubject> test_subjectfilter(String f1, String f2, String f3, School school) throws Exception{
 		List<TestListSubject> list=new ArrayList<>();
 		Connection con=getConnection();
-		PreparedStatement st=con.prepareStatement("SELECT DISTINCT STUDENT.ENT_YEAR, TEST.CLASS_NUM, TEST.STUDENT_NO, STUDENT.NAME FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.ENT_YEAR = "+f1+" and TEST.CLASS_NUM = '"+f2+"' and SUBJECT.NAME = '"+f3+"'");
+		PreparedStatement st=con.prepareStatement("SELECT DISTINCT STUDENT.ENT_YEAR, TEST.CLASS_NUM, TEST.STUDENT_NO, STUDENT.NAME FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.ENT_YEAR = "+f1+" and TEST.CLASS_NUM = '"+f2+"' and SUBJECT.NAME = '"+f3+"' and STUDENT.SCHOOL_CD = '"+school.getCd()+"'");
 		PreparedStatement max=con.prepareStatement("SELECT MAX(NO) AS NOM FROM TEST");
 
 		ResultSet rs = st.executeQuery();
@@ -123,7 +124,7 @@ public class TestListSubjectDao extends DAO {
 			stu.setClassNum(rs.getString("TEST.CLASS_NUM"));
 			stu.setStudentNo(rs.getString("TEST.STUDENT_NO"));
 			stu.setStudentName(rs.getString("STUDENT.NAME"));
-			PreparedStatement st2=con.prepareStatement("SELECT TEST.POINT, TEST.NO FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.NAME = '"+rs.getString("STUDENT.NAME")+"' ORDER BY TEST.NO");
+			PreparedStatement st2=con.prepareStatement("SELECT TEST.POINT, TEST.NO FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.NAME = '"+rs.getString("STUDENT.NAME")+"' AND STUDENT.SCHOOL_CD = '"+school.getCd()+"' ORDER BY TEST.NO");
 			ResultSet rs2 = st2.executeQuery();
 			count = 1;
 			while(rs2.next()){
@@ -155,10 +156,10 @@ public class TestListSubjectDao extends DAO {
 
 	}
 
-	public List<TestListStudent> test_num(String f1, String f2, String f3)throws Exception{
+	public List<TestListStudent> test_num(String f1, String f2, String f3, School school)throws Exception{
 		List<TestListStudent> list=new ArrayList<>();
 		Connection con=getConnection();
-		PreparedStatement st=con.prepareStatement("SELECT DISTINCT TEST.NO FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.ENT_YEAR = "+f1+" and TEST.CLASS_NUM = '"+f2+"' and SUBJECT.NAME = '"+f3+"'");
+		PreparedStatement st=con.prepareStatement("SELECT DISTINCT TEST.NO FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.ENT_YEAR = "+f1+" and TEST.CLASS_NUM = '"+f2+"' and SUBJECT.NAME = '"+f3+"' AND STUDENT.SCHOOL_CD = '"+school.getCd()+"'");
 		ResultSet rs = st.executeQuery();
 
 		while(rs.next()){
