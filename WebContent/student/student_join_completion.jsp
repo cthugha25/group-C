@@ -25,8 +25,8 @@
                 <p class="form-label">登録が完了しました</p>
             </div>
             <div class="mb-3 form-link">
-	                <a href="StudentCreate.action">戻る</a>　　
-	                <a href="StudentCreate.action">学生一覧</a>
+	                <a href="#" onclick="history.back()">戻る</a>　　
+	                <a href="../student/Student_list">学生一覧</a>
 	        </div>
         </section>
     </c:param>

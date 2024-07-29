@@ -51,10 +51,6 @@
 								<% for (TestListSubject ent_year : ent_year_set) { %>
 									<option value=<%=ent_year.getEntYear() %> <c:if test="${year==f1 }">selected</c:if>><%=ent_year.getEntYear() %></option>
 								<% } %>
-								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
-										<%--現在のyearと選択されていたf1が一致していた場合selectedを追記 --%>
-										<%-- <option value="${year }" <c:if test="${year==f1 }">selected</c:if>>${year }</option> --%>
-								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
 							</select>
 						</div>
@@ -66,10 +62,6 @@
 								<% for (TestListSubject number : class_num_set) { %>
 									<option value=<%=number.getClassNum() %> <c:if test="${num==f2 }">selected</c:if>><%=number.getClassNum() %></option>
 								<% } %>
-								<%-- <c:forEach var="num" items="${class_num_set }"> --%>
-									<%--現在のnumと選択されていたf2が一致していた場合selectedを追記 --%>
-									<%-- <option value="${num }" <c:if test="${num==f2 }">selected</c:if>>${num }</option> --%>
-								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
 							</select>
 						</div>
@@ -81,10 +73,6 @@
 								<% for (TestListStudent name : subject_set) { %>
 									<option value=<%=name.getSubjectName() %> <c:if test="${num==f3 }">selected</c:if>><%=name.getSubjectName() %></option>
 								<% } %>
-								<%-- <c:forEach var="year" items="${ent_year_set }"> --%>
-										<%--現在のsubjectと選択されていたf3が一致していた場合selectedを追記 --%>
-										<%-- <option value="${subject }" <c:if test="${subject==f3 }">selected</c:if>>${subject }</option> --%>
-								<%-- </c:forEach> --%>
 								<option value="null" selected>---------------</option>
 							</select>
 						</div>
@@ -108,7 +96,7 @@
 						<td>
 						<div class="col-4">
 							<div class="ochawan-subtitle"><label class="form-label" for="student-f4-select" >学生番号</label></div>
-							<input id="student-f4-select" name="f4" required>
+							<input type="number" id="student-f4-select" name="f4" placeholder="学生番号を入力してください" maxlength="10" required>
 						</div>
 						</td>
 						<td>

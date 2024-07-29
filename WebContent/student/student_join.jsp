@@ -79,7 +79,7 @@
 		</div>
 
 		<div class="mb-3 form-link">
-			<a href="StudentCreate.action">戻る</a>
+			<a href="#" onclick="history.back()">戻る</a>
 		</div>
 </form>
 </section>
