@@ -1,20 +1,22 @@
-/*タイトルのcss*/
+/* タイトルのcss */
 .title {
     background-color: rgb(226, 245, 224);
-    display: flex; /* フレックスボックスを使用して配置 */
-    align-items: center; /* 垂直方向の中央揃え */
     padding: 10px;
+    text-align: center; /* タイトルを中央揃え */
 }
-
 .title h1 {
     margin: 0; /* デフォルトのマージンをリセット */
-    text-align: center; /* 中央揃え */
-    flex: 1; /* フレックスアイテムを可能な限り広げる */
+    padding-bottom: 10px; /* h1と次の要素の間にスペースを追加 */
 }
-
-.title p, .title a {
-    margin: 0 10px; /* 要素間に適切なスペースを追加 */
-    white-space: nowrap; /* 要素が折り返されないようにする */
+.user-info {
+    display: flex; /* フレックスボックスで横に並べる */
+    justify-content: flex-end; /* 右寄せ */
+    padding-right: 20px; /* 右端からのスペースを追加 */
+    gap: 10px: /* 名前とリンクの間にスペースを追加 */
+    margin-top: 10px; /* タイトルとユーザー情報の間にスペースを追加 */
+}
+.user-info p{
+	margin-right:10px /* ユーザー情報とログインの間にスペースを追加 */
 }
 /*サイドバーのcss*/
 .container{
@@ -31,11 +33,22 @@ li{
 .mo-4{
 	width: 80%;
 }
-
 /*menu.jspのcss*/
 .student-management{
     background-color: rgb(210, 242, 205);
-    text-align: center;
+    margin: 0 auto; /* 上下のマージンを0にし、左右のマージンを自動で中央揃え */
+    max-width: 1200px; /* セクションの最大幅を指定（調整可） */
+    box-sizing: border-box; /* パディングを含めて幅を計算 */
+    position: relative; /* 相対位置を指定 */
+    padding-left:27%; /* セクションを左に27%ずらす（調整可） */
+}
+.subject-management{
+    background-color: rgb(210, 242, 205);
+    margin: 0 auto; /* 上下のマージンを0にし、左右のマージンを自動で中央揃え */
+    max-width: 1200px; /* セクションの最大幅を指定（調整可） */
+    box-sizing: border-box; /* パディングを含めて幅を計算 */
+    position: relative; /* 相対位置を指定 */
+    padding-left:27%; /* セクションを左に27%ずらす（調整可） */
 }
 .none-student{
 	color: red;

@@ -6,12 +6,14 @@
 <c:import url = "/common/base.jsp">
 	<c:param name="title">
 		<div class="title">
-			<h1>得点管理システム</h1>
-			<c:if test="${teacher!=null}">
-				<p>${teacher.name }様</p>
-				<a href="../login/Logout_execute">ログアウト</a>
-			</c:if>
-		</div>
+        <h1>得点管理システム</h1>
+        <c:if test="${teacher != null}">
+            <div class="user-info">
+                <p>${teacher.name}様</p>
+                <a href="../login/Logout_execute">ログアウト</a>
+            </div>
+        </c:if>
+    </div>
 	</c:param>
 
 	<c:param name="scripts"></c:param>
@@ -77,7 +79,6 @@
 								<th>クラス</th>
 								<th class="text-center">在学中</th>
 								<th></th>
-								<th></th>
 							</tr>
 							<c:forEach var="student" items="${students}">
 								<tr>
@@ -100,8 +101,6 @@
 									</td>
 									<%-- 生徒情報変更リンク --%>
 									<td><a href="../student/Student_update_while?no=${student.no}">変更</a></td>
-									<%-- 生徒情報削除リンク --%>
-									<td><a href="StudentDelete.action?no=${student.no}">削除</a></td>
 								</tr>
 							</c:forEach>
 						</table>
