@@ -48,11 +48,9 @@ public class Test_filter extends HttpServlet {
 				System.out.println(f1.equals("null"));
 				if(f1.equals("null") != true && f2.equals("null") != true && f3.equals("null") != true){
 					List<TestListSubject> list = dao.test_subjectfilter(f1, f2, f3, school);
-					List<TestListStudent> numlist = dao.test_num(f1, f2, f3, school);
 					List<TestListSubject> ent_year_set=dao.AllEntYear_test(school);
 					List<TestListSubject> class_num_set=dao.AllClassNum_test(school);
 					List<TestListStudent> subject_set=dao.AllSubject_test(school);
-					List<TestListStudent> no_set=dao.AllNo_test(school);
 
 					request.setAttribute("title", "(科目)");
 					request.setAttribute("num", 1);
@@ -60,11 +58,9 @@ public class Test_filter extends HttpServlet {
 					request.setAttribute("classnum", f2);
 					request.setAttribute("subject", f3);
 					request.setAttribute("list", list);
-					request.setAttribute("numlist", numlist);
 					request.setAttribute("ent_year_set", ent_year_set);
 					request.setAttribute("class_num_set", class_num_set);
 					request.setAttribute("subject_set", subject_set);
-					request.setAttribute("no_set", no_set);
 
 					request.getRequestDispatcher("test_list.jsp")
 						.forward(request, response);
@@ -72,14 +68,12 @@ public class Test_filter extends HttpServlet {
 					List<TestListSubject> ent_year_set=dao.AllEntYear_test(school);
 					List<TestListSubject> class_num_set=dao.AllClassNum_test(school);
 					List<TestListStudent> subject_set=dao.AllSubject_test(school);
-					List<TestListStudent> no_set=dao.AllNo_test(school);
 
 					request.setAttribute("title", "");
 					request.setAttribute("num", 11);
 					request.setAttribute("ent_year_set", ent_year_set);
 					request.setAttribute("class_num_set", class_num_set);
 					request.setAttribute("subject_set", subject_set);
-					request.setAttribute("no_set", no_set);
 
 					request.getRequestDispatcher("test_list.jsp")
 						.forward(request, response);
@@ -141,4 +135,5 @@ public class Test_filter extends HttpServlet {
 			e.printStackTrace(out);
 		}
 	}
+
 }

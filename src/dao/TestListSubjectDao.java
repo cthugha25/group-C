@@ -36,7 +36,7 @@ public class TestListSubjectDao extends DAO {
 		return list;
 	}
 
-	// 入学年度全表示
+	// クラス全表示
 	public List<TestListSubject> AllClassNum_test(School school) throws Exception {
 		List<TestListSubject> list=new ArrayList<>();
 
@@ -80,42 +80,14 @@ public class TestListSubjectDao extends DAO {
 		return list;
 	}
 
-	// 回数全表示
-	public List<TestListStudent> AllNo_test(School school) throws Exception {
-		List<TestListStudent> list=new ArrayList<>();
-
-		Connection con=getConnection();
-
-		PreparedStatement st=con.prepareStatement(
-			"select distinct NO from TEST WHERE SCHOOL_CD = '"+school.getCd()+"'");
-		ResultSet rs=st.executeQuery();
-
-		while (rs.next()) {
-			TestListStudent p=new TestListStudent();
-			p.setNum(rs.getInt("NO"));
-			list.add(p);
-		}
-
-		st.close();
-		con.close();
-
-		return list;
-	}
 
 	public List<TestListSubject> test_subjectfilter(String f1, String f2, String f3, School school) throws Exception{
 		List<TestListSubject> list=new ArrayList<>();
 		Connection con=getConnection();
 		PreparedStatement st=con.prepareStatement("SELECT DISTINCT STUDENT.ENT_YEAR, TEST.CLASS_NUM, TEST.STUDENT_NO, STUDENT.NAME FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.ENT_YEAR = "+f1+" and TEST.CLASS_NUM = '"+f2+"' and SUBJECT.NAME = '"+f3+"' and STUDENT.SCHOOL_CD = '"+school.getCd()+"'");
-		PreparedStatement max=con.prepareStatement("SELECT MAX(NO) AS NOM FROM TEST");
 
 		ResultSet rs = st.executeQuery();
-		ResultSet mx = max.executeQuery();
 
-		int maxnum = 0;
-		while(mx.next()){
-			maxnum = mx.getInt("NOM");
-		}
-		int count;
 		while(rs.next()){
 			TestListSubject stu = new TestListSubject();
 			Map<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -126,7 +98,7 @@ public class TestListSubjectDao extends DAO {
 			stu.setStudentName(rs.getString("STUDENT.NAME"));
 			PreparedStatement st2=con.prepareStatement("SELECT TEST.POINT, TEST.NO FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.NAME = '"+rs.getString("STUDENT.NAME")+"' AND STUDENT.SCHOOL_CD = '"+school.getCd()+"' ORDER BY TEST.NO");
 			ResultSet rs2 = st2.executeQuery();
-			count = 1;
+			int count = 1;
 			while(rs2.next()){
 				if(count == rs2.getInt("TEST.NO")){
 					stu.putPoint(rs2.getInt("TEST.NO"), rs2.getInt("TEST.POINT"));
@@ -142,7 +114,7 @@ public class TestListSubjectDao extends DAO {
 					stu.putPoint(rs2.getInt("TEST.NO"), rs2.getInt("TEST.POINT"));
 				}
 			}
-			while(count <= maxnum){
+			while(count <= 2){
 				stu.putPoint(count, 9999);
 				count++;
 			}
@@ -156,21 +128,4 @@ public class TestListSubjectDao extends DAO {
 
 	}
 
-	public List<TestListStudent> test_num(String f1, String f2, String f3, School school)throws Exception{
-		List<TestListStudent> list=new ArrayList<>();
-		Connection con=getConnection();
-		PreparedStatement st=con.prepareStatement("SELECT DISTINCT TEST.NO FROM TEST JOIN STUDENT ON TEST.STUDENT_NO = STUDENT.NO JOIN SUBJECT ON SUBJECT.CD = TEST.SUBJECT_CD WHERE STUDENT.ENT_YEAR = "+f1+" and TEST.CLASS_NUM = '"+f2+"' and SUBJECT.NAME = '"+f3+"' AND STUDENT.SCHOOL_CD = '"+school.getCd()+"'");
-		ResultSet rs = st.executeQuery();
-
-		while(rs.next()){
-			TestListStudent stu = new TestListStudent();
-			stu.setNum(rs.getInt("TEST.NO"));
-			list.add(stu);
-		}
-		st.close();
-		con.close();
-
-		return list;
-
-	}
 }

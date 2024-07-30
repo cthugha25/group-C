@@ -41,14 +41,12 @@ public class Test_list extends HttpServlet {
 			List<TestListSubject> ent_year_set=dao.AllEntYear_test(school);
 			List<TestListSubject> class_num_set=dao.AllClassNum_test(school);
 			List<TestListStudent> subject_set=dao.AllSubject_test(school);
-			List<TestListStudent> no_set=dao.AllNo_test(school);
 
 			request.setAttribute("num", 0);
         	request.setAttribute("teacher", session.getAttribute("teacher"));
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
 			request.setAttribute("subject_set", subject_set);
-			request.setAttribute("no_set", no_set);
 
 			request.getRequestDispatcher("test_list.jsp")
 				.forward(request, response);

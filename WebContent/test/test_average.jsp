@@ -38,7 +38,7 @@
 			<a href="../test/Test_list">成績参照</a><br>
 					<c:choose>
 						<c:when test="${list.size()>0}">
-							<form action="test_average" method="get">
+							<form action="test_average" method="get"style="margin-bottom: 20px;">
 								第<%=num %>回テスト結果(<%=scorkind %>)　クラス:<%=classnum %>　クラス平均:<%=average %>　学年平均:<%=gradeaverage %>
 								<div style="float: right;">
 								<select class="form-select" id ="subject-f2-select" name="search">
@@ -77,4 +77,3 @@
 		</section>
 	</c:param>
 </c:import>
-

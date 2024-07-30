@@ -5,14 +5,12 @@
 <%@page import="bean.TestListStudent, bean.TestListSubject, java.util.List" %>
 <% int num = (int)request.getAttribute("num"); %>
 <% List<TestListSubject> list=(List<TestListSubject>)request.getAttribute("list"); %>
-<% List<TestListStudent> numlist=(List<TestListStudent>)request.getAttribute("numlist"); %>
 <% String year = (String)request.getAttribute("year"); %>
 <% String classnum = (String)request.getAttribute("classnum"); %>
 <% String subject = (String)request.getAttribute("subject"); %>
 <% List<TestListSubject> ent_year_set=(List<TestListSubject>)request.getAttribute("ent_year_set"); %>
 <% List<TestListSubject> class_num_set=(List<TestListSubject>)request.getAttribute("class_num_set"); %>
 <% List<TestListStudent> subject_set=(List<TestListStudent>)request.getAttribute("subject_set"); %>
-<% List<TestListStudent> no_set=(List<TestListStudent>)request.getAttribute("no_set"); %>
 <% List<TestListStudent> tests=(List<TestListStudent>)request.getAttribute("tests"); %>
 <%String titleextra = (String)request.getAttribute("title"); %>
 
@@ -44,7 +42,7 @@
 			</div>
 
 				<div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
-				<form action="test_filter" method="get">
+				<form action="test_filter" method="get" style="width: 950px;max-width: 100%;height: auto;">
 					<table>
 					<td>　　　科目情報&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 					<td>
@@ -92,8 +90,8 @@
 						<td><div class="textarea1"><font color="Gold">　　　　入学年度とクラスと科目を選択してください</font></div></td>
 						</table>
 						<%} %>
-				<hr style="margin-left: 20px; margin-right: -20px; color="#f5f5f5" size="2">
-				<form action="test_filter" method="get">
+				<hr style="margin-left: 20px; margin-right: 20px; color="#f5f5f5" size="2">
+				<form action="test_filter" method="get" style="width: 950px;max-width: 100%;height: auto;">
 					<table>
 						<td>　　　学生情報&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						<td>
@@ -181,4 +179,3 @@
 		</section>
 	</c:param>
 </c:import>
-
