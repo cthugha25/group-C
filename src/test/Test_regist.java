@@ -74,3 +74,4 @@ public class Test_regist extends HttpServlet {
 		}
 	}
 }
+

@@ -10,7 +10,6 @@ public class Test implements Serializable {
 	private int no;
 	private int point;
 
-
 	public Student getStudent(){
 		return student;
 	}
