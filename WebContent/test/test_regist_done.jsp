@@ -20,7 +20,7 @@
             </div>
             <div class="mb-3 form-link">
 	                <a href="Test_regist_filter">戻る</a>　　
-	                <a href="StudentCreate.action">成績参照</a>
+	                <a href="Test_list">成績参照</a>
 	        </div>
         </section>
     </c:param>
