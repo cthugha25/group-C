@@ -179,4 +179,3 @@
 		</section>
 	</c:param>
 </c:import>
-
