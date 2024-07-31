@@ -10,15 +10,6 @@
 	<link rel="stylesheet" href="../css/style.css">
 	<link rel="stylesheet" href="../css/bootstrap.min.css" />
 </head>
-    <style>
-        .vertical-hr {
-            width: 1.5px; /* 縦線の幅 */
-            height: 400px; /* 縦線の高さ */
-            background-color: #f5f5f5;
-            border: none; /* ボーダーを消す */
-            margin-right: 10px; /* 右側の余白 */
-        }
-    </style><body>
 <div class="warrper">
 	${param.title}
 	${param.scripts}
@@ -37,7 +28,13 @@
 				<a href="../subject/Subject_list">科目管理</a>
 			</nav>
 		</div>
-		<hr style="width: 2px; height: 400px; background-color: #f5f5f5; border: none; margin-right: 10px;">
+		<hr style="position: absolute;
+    left: 20%;
+    top: 6;
+    width: 2px;
+    height: 65%;
+    border: none;
+    border-left: 2px solid #f5f5f5;">
 		${param.content}
 	</div>
 <footer>

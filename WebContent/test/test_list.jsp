@@ -111,15 +111,15 @@
 				</div>
 				<%if(num == 1){ %>
 					<%if(list.size() > 0) {%>
-					科目：<%=subject %>
+					科目：<%=subject %>　　　　　<a title="テスト情報表示" href="<%= request.getContextPath() %>/test/test_average?num=1&year=<%= year %>&classnum=<%= classnum %>">第1回テスト結果</a>　　<a title="テスト情報表示" href="<%= request.getContextPath() %>/test/test_average?num=2&year=<%= year %>&classnum=<%= classnum %>">第2回テスト結果</a>
 					<table class="table table-hover">
 						<tr>
 							<th>入学年度</th>
 							<th>クラス</th>
 							<th>学生番号</th>
 							<th>氏名</th>
-							<th><a title="テスト情報表示" style="color: black;text-decoration: none;"" href="<%= request.getContextPath() %>/test/test_average?num=1&year=<%= year %>&classnum=<%= classnum %>">1回</a></th>
-							<th><a title="テスト情報表示" style="color: black;text-decoration: none;"" href="<%= request.getContextPath() %>/test/test_average?num=2&year=<%= year %>&classnum=<%= classnum %>">2回</a></th>
+							<th>1回</th>
+							<th>2回</th>
 						</tr>
 						<%for (TestListSubject test : list){ %>
 							<tr>

@@ -21,7 +21,7 @@ public class TestListSubjectDao extends DAO {
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct ENT_YEAR from STUDENT WHERE SCHOOL_CD = '"+school.getCd()+"'");
+			"select distinct ENT_YEAR from STUDENT WHERE SCHOOL_CD = '"+school.getCd()+"' ORDER BY ENT_YEAR");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -43,7 +43,7 @@ public class TestListSubjectDao extends DAO {
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct CLASS_NUM from TEST WHERE SCHOOL_CD = '"+school.getCd()+"'");
+			"select distinct CLASS_NUM from STUDENT WHERE SCHOOL_CD = '"+school.getCd()+"' ORDER BY CLASS_NUM");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
@@ -65,7 +65,7 @@ public class TestListSubjectDao extends DAO {
 		Connection con=getConnection();
 
 		PreparedStatement st=con.prepareStatement(
-			"select distinct NAME from SUBJECT WHERE SCHOOL_CD = '"+school.getCd()+"'");
+			"select distinct NAME, CD from SUBJECT WHERE SCHOOL_CD = '"+school.getCd()+"' ORDER BY CD");
 		ResultSet rs=st.executeQuery();
 
 		while (rs.next()) {
