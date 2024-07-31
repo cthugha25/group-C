@@ -5,7 +5,15 @@
 
 <c:import url = "/common/base.jsp">
 	<c:param name="title">
-		<div class="title"><h3>得点管理システム</h3></div>
+		<div class="title">
+        <h1>得点管理システム</h1>
+        <c:if test="${teacher != null}">
+            <div class="user-info">
+                <p>${teacher.name}様</p>
+                <a href="../login/Logout_execute">ログアウト</a>
+            </div>
+        </c:if>
+    </div>
 	</c:param>
 
 	<c:param name="scripts"></c:param>
@@ -63,8 +71,8 @@
 					<div class="col-2 text-center">
 						<input type="submit" class="btn btn-secondary" id="filter-button" value="検索">
 					</div>
-					<div class="mt-2 text-warning">${errors.get("f1")}</div>
 				</div>
+				<div class="mt-2 text-warning">${errors}</div>
 			</form>
 
 			<c:choose>
@@ -110,10 +118,13 @@
 
 					</form>
 				</c:when>
+				<%--
 				<c:otherwise>
 					<div class="none-student">学生情報が存在しませんでした</div>
 				</c:otherwise>
+				--%>
 			</c:choose>
 		</section>
 	</c:param>
 </c:import>
+

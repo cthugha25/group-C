@@ -4,7 +4,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/common/base.jsp">
     <c:param name="title">
-        <div><h3 class="title">得点管理システム</h3></div>
+		<div class="title">
+        <h1>得点管理システム</h1>
+        <c:if test="${teacher != null}">
+            <div class="user-info">
+                <p>${teacher.name}様</p>
+                <a href="../login/Logout_execute">ログアウト</a>
+            </div>
+        </c:if>
+    </div>
     </c:param>
 
     <c:param name="scripts"></c:param>
@@ -20,9 +28,8 @@
             </div>
             <div class="mb-3 form-link">
 	                <a href="Test_regist_filter">戻る</a>　　
-	                <a href="Test_list">成績参照</a>
+	                <a href="StudentCreate.action">成績参照</a>
 	        </div>
         </section>
     </c:param>
 </c:import>
-
