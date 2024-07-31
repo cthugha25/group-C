@@ -325,23 +325,25 @@ public class StudentDao extends DAO {
 		return list;
 	}
 
-	 // 学生のデータを更新する
+	// 学生のデータを更新する
 	public int update(Student stu) throws Exception {
-		Connection con= getConnection();
+	    Connection con = getConnection();
 
-		PreparedStatement st=con.prepareStatement(
-				"update STUDENT set NAME=?, ENT_YEAR=?, CLASS_NUM=?, IS_ATTEND=? where NO=?");
-		st.setString(1, stu.getName());
-		st.setInt(2, stu.getEntYear());
-		st.setString(3, stu.getClassNum());
-		st.setBoolean(4, stu.isAttend());
-		st.setString(5, stu.getNo());
+	    PreparedStatement st = con.prepareStatement(
+	            "update STUDENT set NAME=?, ENT_YEAR=?, CLASS_NUM=?, HURIGANA=?, IS_ATTEND=?, GENDER=? where NO=?");
+	    st.setString(1, stu.getName());
+	    st.setInt(2, stu.getEntYear());
+	    st.setString(3, stu.getClassNum());
+	    st.setString(4, stu.getHurigana());
+	    st.setBoolean(5, stu.isAttend());
+	    st.setString(6, stu.getGender());
+	    st.setString(7, stu.getNo());
 
-		int line=st.executeUpdate();
+	    int line = st.executeUpdate();
 
-		st.close();
-		con.close();
-		return line;
+	    st.close();
+	    con.close();
+	    return line;
 	}
 
 	public int insert(School school,Student student) throws Exception {

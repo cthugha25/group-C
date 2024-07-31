@@ -47,6 +47,8 @@ public class Student_update extends HttpServlet {
                 int entYear = Integer.parseInt(request.getParameter("entYear"));
                 String classNum = request.getParameter("classNum");
                 boolean isAttend = request.getParameter("f3") != null;
+                String hurigana = request.getParameter("hurigana");
+                String gender = request.getParameter("gender");
 
                 // バリデーションチェック
                 String errorMessage = null;
@@ -65,6 +67,8 @@ public class Student_update extends HttpServlet {
                     student.setEntYear(entYear);
                     student.setClassNum(classNum);
                     student.setAttend(isAttend);
+                    student.setHurigana(hurigana);
+                    student.setGender(gender);
                     request.setAttribute("student", student);
 
                     // Schoolオブジェクトを作成し、プロパティを設定
@@ -82,6 +86,8 @@ public class Student_update extends HttpServlet {
                 student.setEntYear(entYear);
                 student.setClassNum(classNum);
                 student.setAttend(isAttend);
+                student.setHurigana(hurigana);
+                student.setGender(gender);
 
                 // 学生情報をデータベースに更新
                 StudentDao dao = new StudentDao();
