@@ -2,6 +2,8 @@ package subject;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,8 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.School;
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDao;
+import dao.TeacherDao;
 import tool.Page;
 
 @WebServlet("/subject/subject_update")
@@ -24,6 +29,20 @@ public class Subject_update extends HttpServlet {
 
             try {
             	HttpSession session=request.getSession();
+            	// ログイン状態チェック　未ログインならログインページに
+				if (session.getAttribute("teacher")==null) {
+					String error="ログアウト状態ではシステムを使用できません。";
+					request.setAttribute("error",error);
+					request.getRequestDispatcher("../login/login.jsp")
+						.forward(request, response);
+				}
+
+				// ログイン中の教師情報を取得して学校コードとidをセット
+				TeacherDao teacher_dao=new TeacherDao();
+				Teacher teacher=teacher_dao.get(session.getAttribute("id").toString());
+				School school=new School();
+				school.setCd(teacher.getSchool().getCd());
+
                 // リクエストからパラメータを取得
                 String subjectCd = request.getParameter("subjectCd");
                 String subjectName = request.getParameter("subjectName");
@@ -54,8 +73,17 @@ public class Subject_update extends HttpServlet {
                 subject.setCd(subjectCd);
                 subject.setName(subjectName);
 
-                // 科目情報をデータベースに更新
                 SubjectDao dao = new SubjectDao();
+                // 更新前に選択した科目が削除された場合
+                if (dao.get(subjectCd, school)==null) {
+                	Map<String,String> errors = new HashMap<>();
+                	errors.put("error", "科目が存在していません");
+		        	request.setAttribute("errors", errors);
+		        	request.getRequestDispatcher("subject_update.jsp")
+		        		.forward(request, response);
+                }
+
+                // 科目情報をデータベースに更新
                 int linesUpdated = dao.update(subject);
 
                 if (linesUpdated > 0) {

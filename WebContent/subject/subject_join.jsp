@@ -28,6 +28,7 @@
                 <div class="mb-3">
                     <label for="subjectCode" class="form-label">科目コード</label>
                     <input type="text" class="form-control" id="subjectCode" name="subjectCode" placeholder="科目コードを入力してください" maxlength="10" required>
+                	<div class="mt-2 text-warning">${errors.get("error")}</div>
                 </div>
                 <div class="mb-3">
                     <label for="subjectName" class="form-label">科目名</label>
@@ -36,7 +37,6 @@
                 <div class="mb-3 form-button">
                     <button type="submit" class="btn btn-primary">登録</button>
                 </div>
-                <div class="mt-2 text-warning">${errors.get("error")}</div>
                 <div class="mb-3 form-link">
                     <a href="Subject_list">戻る</a>
                 </div>

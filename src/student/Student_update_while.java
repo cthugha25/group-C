@@ -40,18 +40,6 @@ public class Student_update_while extends HttpServlet {
 			School school=new School();
 			school.setCd(teacher.getSchool().getCd());
 
-			// 在学フラグのデフォルトをtrue(在学中)にする
-			boolean isAttend = true;
-//			String isAttendStr="True";
-
-			// 入学年度、クラス、在学フラグの値受け取り
-			String[] isAttendStr = request.getParameterValues("f3");
-
-			// 在学チェックボックスがチェックされていなかった場合在学フラグをfalseにする
-			if (isAttendStr == null) {
-				isAttend = false;
-			}
-
 			// Daoインスタンス化
 			StudentDao dao=new StudentDao();
 
@@ -59,20 +47,17 @@ public class Student_update_while extends HttpServlet {
 
 			Student student=dao.get(student_cd, school);
 			List<Student> class_num_set=dao.AllClassNum(school);
-			List<Student> list=dao.filter(school, isAttend);
 
 			request.setAttribute("teacher", session.getAttribute("teacher"));
             request.setAttribute("student", student);
-            request.setAttribute("f2", student.getClassNum());
+            request.setAttribute("classNum", student.getClassNum());
         	request.setAttribute("class_num_set", class_num_set);
-        	request.setAttribute("f1", "0");
-			request.setAttribute("f2", "0");
-			request.setAttribute("f3", isAttendStr);
-			// リクエストに学生リストをセット
-			request.setAttribute("students", list);
+			if (student.isAttend() == true) {	// 在学フラグが送信されていた場合
+				// リクエストに在学フラグをセット
+				request.setAttribute("f3", "True");
+			}
 
 			request.getRequestDispatcher("student_update.jsp")
-
 				.forward(request, response);
 
 		} catch (Exception e) {

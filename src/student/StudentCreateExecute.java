@@ -2,6 +2,8 @@ package student;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,13 +22,12 @@ import tool.Page;
 @WebServlet(urlPatterns={"/student/StudentCreateExecute"})
 public class StudentCreateExecute extends HttpServlet {
 
-	public void doPost (
+	public void doGet (
 		HttpServletRequest req, HttpServletResponse res
 	) throws ServletException, IOException {
 		PrintWriter out=res.getWriter();
 		Page.header(out);
 		try {
-
 			// ログイン状態チェック　未ログインならログインページに
 			HttpSession session=req.getSession();
 			if (session.getAttribute("teacher")==null) {
@@ -41,6 +42,9 @@ public class StudentCreateExecute extends HttpServlet {
 			Teacher teacher=teacher_dao.get(session.getAttribute("id").toString());
 			School school=new School();
 			school.setCd(teacher.getSchool().getCd());
+
+			// エラーメッセージ
+			Map<String,String> errors = new HashMap<>();
 
 			//入学年度
 			int ent_Year = Integer.parseInt(req.getParameter("ent_year"));
@@ -61,6 +65,38 @@ public class StudentCreateExecute extends HttpServlet {
 				isAttend = false;
 			}
 
+			// エラー時のデータを保持
+			req.setAttribute("teacher", session.getAttribute("teacher"));
+			req.setAttribute("ent_year", ent_Year);
+			req.setAttribute("no", no);
+			req.setAttribute("name", name);
+			req.setAttribute("hurigana", hurigana);
+			req.setAttribute("classNum", class_Num);
+			if (isAttend_str != null) {	// 在学フラグが送信されていた場合
+				// 在学フラグを立てる
+				isAttend = true;
+				// リクエストに在学フラグをセット
+				req.setAttribute("isAttend", isAttend_str);
+			}
+			req.setAttribute("gender", gender);
+
+			// 入学年度が選択されていない場合はエラーメッセージ表示
+			if (ent_Year==0) {
+				errors.put("ent_year_error", "入学年度を選択してください");
+				req.setAttribute("errors", errors);
+				req.getRequestDispatcher("StudentCreate")
+					.forward(req, res);
+			}
+
+			// 学生番号が重複している場合はエラーメッセージ表示
+			StudentDao dao = new StudentDao();
+			if (dao.get(no, school)!=null) {
+				errors.put("no_error", "学生番号が重複しています");
+				req.setAttribute("errors", errors);
+				req.getRequestDispatcher("StudentCreate")
+					.forward(req, res);
+			}
+
 			Student student = new Student();
 			student.setEntYear(ent_Year);
 			student.setNo(no);
@@ -70,10 +106,7 @@ public class StudentCreateExecute extends HttpServlet {
 			student.setGender(gender);
 			student.setAttend(isAttend);
 
-
-			StudentDao dao = new StudentDao();
 			int line = dao.insert(school,student);
-
 
 			System.out.println(line);
 			if (line>0) {

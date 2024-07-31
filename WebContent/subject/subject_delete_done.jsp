@@ -8,8 +8,10 @@
 		<div class="title">
 			<h2>得点管理システム</h2>
 			<c:if test="${teacher!=null}">
-				<p>${teacher.name }様</p>
-				<a href="../login/Logout_execute">ログアウト</a>
+				<div class="user-info">
+                	<p>${teacher.name}様</p>
+                	<a href="../login/Logout_execute">ログアウト</a>
+            	</div>
 			</c:if>
 		</div>
 	</c:param>

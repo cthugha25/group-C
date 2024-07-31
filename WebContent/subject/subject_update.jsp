@@ -28,6 +28,7 @@
                     <label for="subjectCd" class="form-label">科目コード</label>
                     <p>${subject.cd}</p>
                     <input type="hidden" name="subjectCd" value="${subject.cd}">
+                	<div class="mt-2 text-warning">${errors.get("error")}</div>
                 </div>
                 <div class="mb-3">
                     <label for="subjectName" class="form-label">科目名</label>

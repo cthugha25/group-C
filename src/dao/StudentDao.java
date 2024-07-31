@@ -45,6 +45,8 @@ public class StudentDao extends DAO {
 				student.setEntYear(rSet.getInt("ENT_YEAR"));
 				student.setClassNum(rSet.getString("CLASS_NUM"));
 				student.setAttend(rSet.getBoolean("IS_ATTEND"));
+				student.setHurigana(rSet.getString("HURIGANA"));
+				student.setGender(rSet.getString("GENDER"));
 				// 学校フィールドには学校コードで検索した学校インスタンスをセット
 				student.setSchool(schoolDao.get(rSet.getString("SCHOOL_CD")));
 			} else {
@@ -322,26 +324,6 @@ public class StudentDao extends DAO {
 
 		return list;
 	}
-
-//	// 特定の学生のデータを取得する
-//    public Student getStudent(String studentCd) throws Exception {
-//        Student student = new Student();
-//        Connection con = getConnection();
-//        PreparedStatement st = con.prepareStatement(
-//        		"select NO, NAME, ENT_YEAR, CLASS_NUM, IS_ATTEND from STUDENT where NO=?");
-//        st.setString(1, studentCd);
-//        ResultSet rs = st.executeQuery();
-//        if (rs.next()) {
-//            student.setNo(rs.getString("NO"));
-//            student.setName(rs.getString("NAME"));
-//            student.setEntYear(rs.getInt("ENT_YEAR"));
-//            student.setClassNum(rs.getString("CLASS_NUM"));
-//            student.setAttend(rs.getBoolean("IS_ATTEND"));
-//        }
-//        st.close();
-//        con.close();
-//        return student;
-//    }
 
 	 // 学生のデータを更新する
 	public int update(Student stu) throws Exception {

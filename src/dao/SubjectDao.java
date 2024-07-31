@@ -115,25 +115,48 @@ public class SubjectDao extends DAO {
 		Subject subject = new Subject();
 		// コネクションを確立
 		Connection con=getConnection();
+		// プリペアードステートメント
+		PreparedStatement statement = null;
 
-		// プリペアードステートメントにSQL文をセット
-		PreparedStatement st=con.prepareStatement(
-			"select CD, NAME from SUBJECT "
-			+ "where CD=? and SCHOOL_CD=?");
-		// 検索条件に科目コードと学校コードをバインド
-		st.setString(1, cd);
-		st.setString(2, school.getCd());
-		// 実行
-		ResultSet rs = st.executeQuery();
+		try {
+			// プリペアードステートメントにSQL文をセット
+			PreparedStatement st=con.prepareStatement(
+				"select CD, NAME from SUBJECT "
+				+ "where CD=? and SCHOOL_CD=?");
+			// 検索条件に科目コードと学校コードをバインド
+			st.setString(1, cd);
+			st.setString(2, school.getCd());
+			// 実行
+			ResultSet rs = st.executeQuery();
 
-		// 科目インスタンスに検索結果セット
-		rs.next();
-		subject.setCd(rs.getString("CD"));
-		subject.setName(rs.getString("NAME"));
+			// 科目インスタンスに検索結果セット
+			if (rs.next()) {
+				subject.setCd(rs.getString("CD"));
+				subject.setName(rs.getString("NAME"));
+			}else {
+				subject = null;
+			}
 
-		// プリペアードステートメントとコネクションを閉じる
-		st.close();
-		con.close();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			// プリペアードステートメントを閉じる
+			if (statement != null) {
+				try {
+					statement.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			// コネクションを閉じる
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
 
 		return subject;
 	}

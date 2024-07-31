@@ -51,7 +51,7 @@ public class Student_filter extends HttpServlet {
 			// 入学年度、クラス、在学フラグの値受け取り
 			int entYear=Integer.parseInt(request.getParameter("f1"));
 			String classNum=request.getParameter("f2");
-			String[] isAttendStr=request.getParameterValues("f3");
+			String isAttendStr=request.getParameter("f3");
 
 			// 在学チェックボックスがチェックされていなかった場合在学フラグをfalseにする
 			if (isAttendStr == null) {
