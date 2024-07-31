@@ -39,20 +39,17 @@ public class Student_list extends HttpServlet {
 			School school=new School();
 			school.setCd(teacher.getSchool().getCd());
 
-			// 在学フラグのデフォルトをtrue(在学中)にする
-			boolean isAttend = true;
-
 			// 入学年度、クラス番号、学生一覧表示メソッド実行
 			StudentDao dao=new StudentDao();
 			List<Student> ent_year_set=dao.AllEntYear(school);
 			List<Student> class_num_set=dao.AllClassNum(school);
-			List<Student> list=dao.filter(school, isAttend);
+			List<Student> list=dao.filter(school);
 
 			// リクエストに値をセット
 			request.setAttribute("teacher", session.getAttribute("teacher"));
 			request.setAttribute("ent_year_set", ent_year_set);
 			request.setAttribute("class_num_set", class_num_set);
-			request.setAttribute("f3", String.valueOf(isAttend));
+			request.setAttribute("f3", "");
 			request.setAttribute("students", list);
 
 			// 学生一覧にフォワード
