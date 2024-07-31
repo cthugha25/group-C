@@ -143,7 +143,7 @@
 					<%}else{ %>
 						成績情報が存在しませんでした
 					<%} %>
-				<%}else if(num == 11 || num == 22){ %>
+				<%}else if(num == 11 || num == 22 || num == 0){ %>
 					<font color="Cyan">科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</font>
 				<%}else if (num == 2){ %>
 					<c:choose>

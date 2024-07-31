@@ -86,35 +86,36 @@ public class StudentCreateExecute extends HttpServlet {
 				req.setAttribute("errors", errors);
 				req.getRequestDispatcher("StudentCreate")
 					.forward(req, res);
+			}else{
+
+				// 学生番号が重複している場合はエラーメッセージ表示
+				StudentDao dao = new StudentDao();
+				if (dao.get(no, school)!=null) {
+					errors.put("no_error", "学生番号が重複しています");
+					req.setAttribute("errors", errors);
+					req.getRequestDispatcher("StudentCreate")
+						.forward(req, res);
+				}
+
+				Student student = new Student();
+				student.setEntYear(ent_Year);
+				student.setNo(no);
+				student.setName(name);
+				student.setClassNum(class_Num);
+				student.setHurigana(hurigana);
+				student.setGender(gender);
+				student.setAttend(isAttend);
+
+				int line = dao.insert(school,student);
+
+				System.out.println(line);
+				if (line>0) {
+					out.println("登録に成功しました。");
+				}
+				req.setAttribute("teacher", session.getAttribute("teacher"));
+				req.getRequestDispatcher("/student/student_join_completion.jsp").forward(req, res);
+				Page.footer(out);
 			}
-
-			// 学生番号が重複している場合はエラーメッセージ表示
-			StudentDao dao = new StudentDao();
-			if (dao.get(no, school)!=null) {
-				errors.put("no_error", "学生番号が重複しています");
-				req.setAttribute("errors", errors);
-				req.getRequestDispatcher("StudentCreate")
-					.forward(req, res);
-			}
-
-			Student student = new Student();
-			student.setEntYear(ent_Year);
-			student.setNo(no);
-			student.setName(name);
-			student.setClassNum(class_Num);
-			student.setHurigana(hurigana);
-			student.setGender(gender);
-			student.setAttend(isAttend);
-
-			int line = dao.insert(school,student);
-
-			System.out.println(line);
-			if (line>0) {
-				out.println("登録に成功しました。");
-			}
-			req.setAttribute("teacher", session.getAttribute("teacher"));
-			req.getRequestDispatcher("/student/student_join_completion.jsp").forward(req, res);
-			Page.footer(out);
 
 		} catch (Exception e) {
 			e.printStackTrace(out);
