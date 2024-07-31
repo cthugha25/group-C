@@ -16,7 +16,6 @@
     </c:param>
 
     <c:param name="scripts"></c:param>
-
     <c:param name="content">
         <section class="mo-4">
             <div class="student-management">

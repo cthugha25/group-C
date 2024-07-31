@@ -78,7 +78,6 @@ public class Test_regist_execute extends HttpServlet {
              tests.add(test);
 
          }
-
             TestDao testDao = new TestDao();
 
             boolean Success = testDao.save(tests);

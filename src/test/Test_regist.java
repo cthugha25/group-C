@@ -45,7 +45,6 @@ public class Test_regist extends HttpServlet {
 				request.getRequestDispatcher("../login/login.jsp")
 					.forward(request, response);
 			}
-
 			// ログイン中の教師情報を取得して学校コードをセット
 			TeacherDao teacher_dao=new TeacherDao();
 			Teacher teacher=teacher_dao.get(session.getAttribute("id").toString());
