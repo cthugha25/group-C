@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,6 +41,22 @@ public class Test_regist_execute extends HttpServlet {
             String[] self_points = request.getParameterValues("point");
          // クラス番号
             String[] class_num = request.getParameterValues("class_Num");
+
+            // 点数のいずれかが空文字列である場合の処理
+            boolean hasEmptyPoint = false;
+            for (String point : self_points) {
+                if (point == null || point.trim().isEmpty()) {
+                    hasEmptyPoint = true;
+                    break;
+                }
+            }
+
+            if (hasEmptyPoint) {
+                request.setAttribute("pointnull", "点数を入力してください");
+                System.out.println("point is empty");
+                RequestDispatcher rDispatcher= request.getRequestDispatcher("../test/Test_regist_filter");
+                rDispatcher.forward(request, response);
+            }
 
          // 配列を整数型に変換
          int length = student_no.length;

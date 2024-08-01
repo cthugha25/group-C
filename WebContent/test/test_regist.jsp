@@ -72,6 +72,7 @@
 					</div>
 				</div>
 				<div class="mt-2 text-warning">${errors}</div>
+				<div class="mt-2 text-warning">${pointnull}</div>
 			</form>
 
 			<c:choose>
@@ -95,20 +96,21 @@
 									<td>
 										<c:choose>
 											<c:when test="${test.point }">
-												<input type="number" name="point" min="1" max="100"  value="${info.point }">
+												<input type="number" name="point" min="0" max="100"  value="${info.point }">
+												<div class="mt-2 text-warning">${pointnull}</div>
 											</c:when>
 											<c:otherwise>
-												<input type="number" name="point" min="1" max="100"  value="${info.point }">
+												<input type="number" name="point" min="0" max="100"  value="${info.point }">
 											</c:otherwise>
 										</c:choose>
 									</td>
 								</tr>
-										<%--他のサーブレットに必要な情報をhiddenで隠す --%>
-										<input type="hidden" name="student_no" value="${info.student.no}">
-										<input type="hidden" name="f3" value="${subject.cd}">
-										<input type="hidden" name="school_cd" value="${info.school.cd }">
-										<input type="hidden" name="f4" value="${test_num}">
-										<input type="hidden" name="class_Num" value="${info.student.classNum}">
+											<%--他のサーブレットに必要な情報をhiddenで隠す --%>
+											<input type="hidden" name="student_no" value="${info.student.no}">
+											<input type="hidden" name="f3" value="${subject.cd}">
+											<input type="hidden" name="school_cd" value="${info.school.cd }">
+											<input type="hidden" name="f4" value="${test_num}">
+											<input type="hidden" name="class_Num" value="${info.student.classNum}">
 							</c:forEach>
 						</table>
 						<div class="col-2 text-center">
@@ -117,11 +119,6 @@
 
 					</form>
 				</c:when>
-				<%--
-				<c:otherwise>
-					<div class="none-student">学生情報が存在しませんでした</div>
-				</c:otherwise>
-				--%>
 			</c:choose>
 		</section>
 	</c:param>
