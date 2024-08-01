@@ -63,6 +63,11 @@ public class Student_filter extends HttpServlet {
 			List<Student> ent_year_set=dao.AllEntYear(school);
 			List<Student> class_num_set=dao.AllClassNum(school);
 
+			// リクエストに値をセット
+			request.setAttribute("teacher", session.getAttribute("teacher"));
+			request.setAttribute("ent_year_set", ent_year_set);
+			request.setAttribute("class_num_set", class_num_set);
+
 			// 実行するfilterメソッド分岐
 			if (entYear != 0 && !classNum.equals("0")) {
 				// 入学年度とクラス番号指定
@@ -73,13 +78,22 @@ public class Student_filter extends HttpServlet {
 			} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
 				// 指定なしの場合
 				// 全学年情報を取得
-				list = dao.filter(school, isAttend);
+				list=dao.filter(school);
+				request.setAttribute("f3", "");
+				request.setAttribute("students", list);
+				if (isAttend==true) {
+					list = dao.filter(school, isAttend);
+				} else if (isAttend==false) {
+					list = dao.filter(school, isAttend);
+				}
 			} else {
 				// エラー
 				errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
 				request.setAttribute("errors", errors);
 				// デフォルトの学生情報を取得
-				list = dao.filter(school, isAttend);
+				list=dao.filter(school);
+				request.setAttribute("f3", "");
+				request.setAttribute("students", list);
 			}
 
 			// リクエストに値をセット
